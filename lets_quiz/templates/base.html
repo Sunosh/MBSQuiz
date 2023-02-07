@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,17 +23,17 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
             <h1><a href="{% url 'quiz:home' %}" class="navbar-brand">
-            <strong>Let's Quiz</strong></a></h1>
+            <strong><font face="COMIC SANS MS" size="4">Московское Суворовское Военное Училище</font></strong></a></h1>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse justify-content-end " id="navbar">
                 {% if not request.user.is_active %}
-                <a href="{% url 'quiz:leaderboard' %}" class="btn btn-info mt-1 mx-1">Leaderboard</a>
-                <a href="{% url 'quiz:login' %}" class="btn btn-info mt-1"><i class="fa fa-sign-in" aria-hidden="true"></i> Log In</a>
+                <a href="{% url 'quiz:login' %}" class="btn btn-info mt-1"><i class="fa fa-sign-in" aria-hidden="true"></i> Вход</a>
+                <a href="{% url 'quiz:register' %}" class="btn btn-info mt-1 mx-1"><i class="fa fa-sign-in" aria-hidden="true"></i> Регистрация</a>
+                <a href="{% url 'quiz:leaderboard' %}" class="btn btn-info mt-1 mx-1">Таблица Лидеров</a>
                 {% else %}
-                <h6 class="text-white mt-2 mr-2">Welcome, {{ request.user.username }} | </h6>
-                <h6 class="text-white mt-2 mr-2"><a href="{% url 'quiz:leaderboard' %}" class="text-white">Leaderboard</a> |</h6>
-                <h6 class="mt-2"><a href="{% url 'quiz:play' %}" class="text-white">Let's play</a></h6>
-                <a href="{% url 'quiz:logout' %}" class="btn btn-danger mt-1 mx-1">Log Out <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                <h6 class="text-white mt-2 mr-2"><a href="{% url 'quiz:leaderboard' %}" class="text-white">Таблица Лидеров</a> |</h6>
+                <h6 class="mt-2"><a href="{% url 'quiz:play' %}" class="text-white">Давайте начнем!</a></h6>
+                <a href="{% url 'quiz:logout' %}" class="btn btn-danger mt-1 mx-1">Выйти <i class="fa fa-sign-out" aria-hidden="true"></i></a>
                 {% endif %}
             </div>
         </div>
@@ -45,8 +45,8 @@
     <footer class="bg-light text-muted py-0">
         <div class="container py-4">
             <ul class="list-inline mb-0 text-center">
-                <li class="list-inline-item">&copy; 2018 Let's Quiz.</li>
-                <li class="list-inline-item">All rights reserved.</li>
+                <li class="list-inline-item">&copy; Москва 2023.</li>
+                <li class="list-inline-item">Все права защищены.</li>
             </ul>
         </div>
     </footer>

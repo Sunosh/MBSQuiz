@@ -1,33 +1,33 @@
 {% extends 'base.html' %}
-{% block title %} Let's Quiz | Welcome {% endblock title %}
+{% block title %} MBS |  Добро пожаловать!{% endblock title %}
 {% block content %}
 <div class="container my-4">
     <div class="jumbotron">
 
-	      <h2 class="text-center text-info">Congratulations!! You have successfully logged in.</h2>
-	      <h3 class="text-info text-center">Before you play the quiz, here are the rules</h3>
+	      <h2 class="text-center text-info">Поздравляем! Вы успешно вошли.</h2>
+	      <h3 class="text-info text-center">Перед прохождением предварительно ознакомтесь с правилами</h3>
 
         <div class="row">
 
             <div class="card border-info mx-4 my-4">
                 <div class="card-body text-info">
-                    <h4 class="card-title">Rules :</h4>
+                    <h4 class="card-title">Правила :</h4>
                     <p class="card-text">
                         <ul style="list-style:decimal;">
-                            <li>All questions are multiple choice question.</li>
-                            <li><span class="text-danger">Only one choice is correct.</span></li>
-                            <li>Every question carry equal marks i.e. <span class="text-danger">4 marks for each question.</span>
+                            <li>Все вопросы различаются.</li>
+                            <li><span class="text-danger">Только один ответ правильный.</span></li>
+                            <li>Каждый правильный ответ измеряется в баллах. <span class="text-danger">4 балла за каждый правильный ответ.</span>
                             </li>
-                            <li>Every question is displayed only once per user.</li>
-                            <li>Try to answer as quickly as you can.</li>
-                            <li>If you press refresh or go back to the previous page, there will be a new question for you and the question you were on will be counted as attempted.</li>
-                            <li>Questions are displayed randomly for every user.</li>
-                            <li>You will be told immediately whether your answer was correct or incorrect once you submit the answer.</li>
+                            <li>Каждый вопрос может быть показан всего один раз.</li>
+                            <li>Попытайтесь ответить как можно быстрее.</li>
+                            <li>Если вы нажмете "Обновить" или "Назад к предыдущей странице", появиться новый вопрос и вопрос который будет засчитан как заново прошедший.</li>
+                            <li>Вопросы появляются разные для разных пользователей.</li>
+                            <li>Результаты ответа вы увидите сразу после отправки ответа.</li>
                         </ul>
                     </p>
-                    <a href="{% url 'quiz:play' %}" class="btn btn-info">Let's play</a>
+                    <a href="{% url 'quiz:play' %}" class="btn btn-info">Играть</a>
                 </div>  
-                <div class="card-footer">Rules last modified 08-March-2018</div>  
+                <div class="card-footer">Правила правлены 1 февраля 2023 года</div>
             </div>  
         </div>  
 
