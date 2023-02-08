@@ -1,9 +1,8 @@
 # MBS
 
-### [???./](https://???.com/) [![Website letsquiz.pythonanywhere.com](https://img.shields.io/website-up-down-green-red/http/letsquiz.pythonanywhere.com.svg)](http://letsquiz.pythonanywhere.com/)
+### [???./](https://???.com/) [![Сайт ???.com](https://img.shields.io/website-up-down-green-red/http/letsquiz.pythonanywhere.com.svg)](http://letsquiz.pythonanywhere.com/)
 
 Это онлайн платформа олимпиад, с помощью Python веб-фреймворка Django.<br>
-For front-end designing I have used Twitter's front-end library Bootstrap4.
 
 [![GitHub release](https://img.shields.io/github/release/akashgiricse/lets-quiz.svg)](https://img.shields.io/bower/vpre/bootstrap.svg)
 [![GitHub forks](https://img.shields.io/github/forks/akashgiricse/lets-quiz.svg)](https://github.com/akashgiricse/lets-quiz/network)
@@ -17,25 +16,25 @@ For front-end designing I have used Twitter's front-end library Bootstrap4.
 
 - Для доступа к сайту пользователь должен быть зарегистрирован.
 - Для регистрации пользователь обязан предоставить свои: _НикНейм_, _Электронная почта_ и _Пароль_.
-- For login the user will be required to enter _username_ and _password_ only.
+
 
 ### Функции платформы:
 
-- Все вопросы выбираются рандомно.
+- Все вопросы выбираются случайным образом.
 - Каждый вопрос показывается единожды для каждого пользователя.
-- Если пользователь случайно обновит страницу или перейдёт на предыдущюю страницу, то будет показан отдельный вопрос с новым условием в соответствии с туром.
+- Если пользователь случайно обновит страницу или перейдёт на предыдущюю страницу, то будет показан вопрос с новым условием в соответствии с туром.
 - После отправки ответа сразу будет показано "Правильно/Неправильно".
 
 ### Функции Таблицы Лидеров:
 
-- Таблица Лидеров- таблица, где пользователи сортируются по счёту.
-- Если два пользователя имеют одинаковый счёт, то первее будет тот, кто зарегистрировался ранше другого.
+- Таблица Лидеров- таблица, где пользователи сортируются по количеству набранных очков.
+- Если два пользователя имеют одинаковое количество очков, то первым будет тот, кто зарегистрировался ранее.
 - Таблица Лидеров открыта для всех. Доступен вход без логина.
 
 ### Функции администратора:
 
-- Только админы могут добавлять вопросы.
-- Админы могут редактировать вопросы до того как они будут помечены  _Опубликован?_
+- вопросы  могут добавлять только админы.
+- Админы могут редактировать вопросы до того, как они будут помечены  _Опубликован?_
 - Вопрос выкладывается единожды, он может быть доступен только единожды. Админы могут просматривать список вопросов.
 - Админ может искать вопросы по условию или по вариантам ответов.
 - Админ может фильтровать вопросы по категориия: Опубликовано, Не опубликовано.
@@ -46,12 +45,12 @@ Dependencies:
 
 - Python 3.6.x
 - Django 1.11.x
-- Ubuntu 17.04 или позже or Linux Mint 18.2 или позже
+- Ubuntu 17.04 или позже или Linux Mint 18.2 или позже
 
 ### 1. Скопируйте себе этот репозиторий
 
 ```bash
-git clone https://github.com/akashgiricse/lets-quiz.git
+git clone https://github.com/Sunosh/MBSQuiz.git
 cd lets_quiz
 ```
 
@@ -60,7 +59,6 @@ cd lets_quiz
 ### 3. Создайте виртуальное пространство
 
 ```bash
-## run following command from `lets_quiz` directory
 pipenv shell
 ```
 
