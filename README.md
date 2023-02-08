@@ -98,6 +98,7 @@ python manage.py runserver
 ## Создатели
 
 - [Lixer](https://github.com/lixerso2)
+- [Suno](https://github.com/Sunosh)
 
 ## Поддержка
 
