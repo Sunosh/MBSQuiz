@@ -4,10 +4,16 @@
 
     <section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
       <div class="container text-center">
+        {% if not request.user.is_active %}
+        <h1 class="display-1 text-info">MBS</h1>
+        <p class="display-4 d-none d-sm-block">Проверьте свои знания.</p>
+        <p class="lead">Мы создаем расносторонние задания.</p>
+        {% else %}
         <h5 class="lead"><font color="LightSeaGreen">Добро пожаловать, {{ request.user.username }}  </font></h5>
         <h1 class="display-1 text-info">MBS</h1>
         <p class="display-4 d-none d-sm-block">Проверьте свои знания.</p>
         <p class="lead">Мы создаем расносторонние задания.</p>
+        {% endif %}
 
         {% if not request.user.is_active %}
 

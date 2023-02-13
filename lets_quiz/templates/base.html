@@ -22,8 +22,6 @@
 <body class="bg-light">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
-            <h1><a href="{% url 'quiz:home' %}" class="navbar-brand">
-            <strong><font face="COMIC SANS MS" size="4">Московское Суворовское Военное Училище</font></strong></a></h1>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse justify-content-end " id="navbar">
                 {% if not request.user.is_active %}
@@ -32,7 +30,8 @@
                 <a href="{% url 'quiz:leaderboard' %}" class="btn btn-info mt-1 mx-1">Таблица Лидеров</a>
                 {% else %}
                 <h6 class="text-white mt-2 mr-2"><a href="{% url 'quiz:leaderboard' %}" class="text-white">Таблица Лидеров</a> |</h6>
-                <h6 class="mt-2"><a href="{% url 'quiz:play' %}" class="text-white">Давайте начнем!</a></h6>
+                <h6 class="mt-2"><a href="{% url 'quiz:play' %}" class="text-white">Давайте начнем! | </a></h6>
+                <h6 class="mt-2"><a href="{% url 'quiz:waitingroom' %}" class="text-white">Комната ожидания</a></h6>
                 <a href="{% url 'quiz:logout' %}" class="btn btn-danger mt-1 mx-1">Выйти <i class="fa fa-sign-out" aria-hidden="true"></i></a>
                 {% endif %}
             </div>

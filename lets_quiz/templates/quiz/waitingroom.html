@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %} MBS | Комната ожидания {% endblock title %}
+{% block content %}
+
+    <section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
+        <div class="container text-center">
+            {% if request.user.is_active %}
+            <h1>Комната ожидания</h1>
+            <h5 class="btn btn-danger mt-1 mx-1"><strong><a href="{% url 'quiz:home' %}"> Выйти </a></strong></h5>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock content %}
