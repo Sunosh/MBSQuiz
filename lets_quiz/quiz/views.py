@@ -60,10 +60,6 @@ def play(request):
 
         return render(request, 'quiz/play.html', context=context)
 
-    def waitingroom(request):
-        context = {}
-        return render(request, 'waitingroom.html', context=context)
-
 
 @login_required()
 def submission_result(request, attempted_question_pk):
@@ -116,5 +112,10 @@ def error_500(request):
     return render(request, 'quiz/error_500.html', data)
 
 def waitingroom(request):
-    context={}
+    context = {}
     return render(request, 'waitingroom.html', context=context)
+
+
+def about(request):
+    context = {}
+    return render(request, 'about.html', context=context)
