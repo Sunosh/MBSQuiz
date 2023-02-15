@@ -72,23 +72,25 @@ def submission_result(request, attempted_question_pk):
 
 
 def login_view(request):
-    title = "Login"
+    title = "Вход"
     form = UserLoginForm(request.POST or None)
     if form.is_valid():
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
-        user = authenticate(username=username, password=password)
+        логин = form.cleaned_data.get("логин")
+        пароль = form.cleaned_data.get("пароль")
+        user = authenticate(username=логин, password=пароль)
         login(request, user)
         return redirect('/user-home')
     return render(request, 'quiz/login.html', {"form": form, "title": title})
 
 
 def register(request):
-    title = "Create account"
+    title = "Создать аккаунт"
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
+            user = authenticate(username=form, password=пароль)
+            login(request, user)
             return redirect('/login')
     else:
         form = RegistrationForm()
@@ -111,11 +113,7 @@ def error_500(request):
     data = {}
     return render(request, 'quiz/error_500.html', data)
 
-def waitingroom(request):
-    context = {}
-    return render(request, 'waitingroom.html', context=context)
-
-
-def about(request):
-    context = {}
-    return render(request, 'about.html', context=context)
+def faq(request):
+    title = 'Часто задаваемые вопросы'
+    context = {'faq': title}
+    return render(request, 'faq.html', context=context)

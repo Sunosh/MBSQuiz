@@ -45,35 +45,31 @@ User = get_user_model()
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(label="Логин")
+    password = forms.CharField(widget="PasswordInput", label="Пароль")
 
     def clean(self, *args, **kwargs):
-        username = self.cleaned_data.get("username")
-        password = self.cleaned_data.get("password")
+        Логин = self.cleaned_data.get("Логин")
+        Пароль = self.cleaned_data.get("Пароль")
 
-        if username and password:
-            user = authenticate(username=username, password=password)
+        if Логин and Пароль:
+            user = authenticate(username=Логин, password=Пароль)
             if not user:
-                raise forms.ValidationError("This user does not exists")
-            if not user.check_password(password):
-                raise forms.ValidationError("Incorrect password")
+                raise forms.ValidationError("Пользователь не подходит")
+            if not user.check_password(Пароль):
+                raise forms.ValidationError("Неправильный пароль")
             if not user.is_active:
-                raise forms.ValidationError("This user is not active")
+                raise forms.ValidationError("Этот пользователь не активен")
         return super(UserLoginForm, self).clean(*args, **kwargs)
 
 
 class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True, label="Электронная почта")
 
     class Meta:
         model = User
         fields = [
             'username',
-            'first_name',
-            'last_name',
             'email',
             'password1',
             'password2',
@@ -81,8 +77,6 @@ class RegistrationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data['email']
 
         if commit:
