@@ -16,7 +16,7 @@
   <div class="jumbotron my-4">
 
     <h3 class="text-info">{{ question.html|safe }}</h3>
-    <form class="form" action="" method="post">
+    <form class="form" action="" method="post" id="submit_answer">
         {% csrf_token %}
         <input type="hidden" name="question_pk" value="{{ question.pk }}">
         {% for choice in question.choices.all %}
@@ -28,7 +28,28 @@
           </div>
 
         {% endfor %}
-        <input class="btn btn-info btn-lg" type="submit" value="Submit">  
+        <input class="btn btn-info btn-lg" type="submit" value="Submit" >
+        <div id="timer"></div>
+        <script type="text/javascript">
+            let timerShow = document.getElementById("timer"); // Берём блок для показа времени
+
+            timeMinut = 60
+
+
+            timer = setInterval(function(){
+	            seconds = timeMinut%60
+	                minutes = timeMinut/60%60
+	                hour = timeMinut/60/60%60
+	        if (timeMinut <= 0) {
+		        clearInterval(timer);
+		        document.getElementById("submit_answer").submit();
+	        } else{
+		        let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
+		        timerShow.innerHTML = strTimer;
+	        }
+	        --timeMinut;
+            }, 1000)
+        </script>
     </form>
   </div>
 </div>
