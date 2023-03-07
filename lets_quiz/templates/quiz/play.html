@@ -3,53 +3,32 @@
 {% block content %}
 {% if question is None %}
 
-<div class="container">
-  <div class="jumbotron my-4">
+<div class="container center">
+  <div class="info-text">
     <h1> Вы ответили на все вопросы. </h1>
-    <a href="{% url 'quiz:leaderboard' %}" class="btn btn-lg btn-info"><i class="fa fa-trophy" aria-hidden="true"></i> Смотрите таблицу лидеров здесь <i class="fa fa-trophy" aria-hidden="true"></i></a>
+    <a href="{% url 'quiz:leaderboard' %}" class="btn1">Смотрите таблицу лидеров здесь</a>
   </div>
 </div>
 
 {% else %}
 
-<div class="container">
-  <div class="jumbotron my-4">
+<div margin-left="20%">
+  <div class="info-text">
 
-    <h3 class="text-info">{{ question.html|safe }}</h3>
-    <form class="form" action="" method="post" id="submit_answer">
+    <h3>{{ question.html|safe }}</h3>
+    <form class="form" action="" method="post">
         {% csrf_token %}
         <input type="hidden" name="question_pk" value="{{ question.pk }}">
         {% for choice in question.choices.all %}
-          <div class="form-check mx-4">
-            <input class="form-check-input" type="radio" name="choice_pk" id="choice-{{ forloop.counter }}" value="{{ choice.pk }}">
-            <label class="form-check-label" for="choice-{{ forloop.counter }}">
+          <div>
+            <input type="radio" name="choice_pk" id="choice-{{ forloop.counter }}" value="{{ choice.pk }}">
+            <label for="choice-{{ forloop.counter }}">
               {{ choice.html|safe }}
             </label>
           </div>
 
         {% endfor %}
-        <input class="btn btn-info btn-lg" type="submit" value="Submit" >
-        <div id="timer"></div>
-        <script type="text/javascript">
-            let timerShow = document.getElementById("timer"); // Берём блок для показа времени
-
-            timeMinut = 60
-
-
-            timer = setInterval(function(){
-	            seconds = timeMinut%60
-	                minutes = timeMinut/60%60
-	                hour = timeMinut/60/60%60
-	        if (timeMinut <= 0) {
-		        clearInterval(timer);
-		        document.getElementById("submit_answer").submit();
-	        } else{
-		        let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
-		        timerShow.innerHTML = strTimer;
-	        }
-	        --timeMinut;
-            }, 1000)
-        </script>
+        <input class="btn1" type="submit" value="Submit">  
     </form>
   </div>
 </div>

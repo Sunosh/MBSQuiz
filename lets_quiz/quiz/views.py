@@ -40,13 +40,12 @@ def play(request):
 
         choice_pk = request.POST.get('choice_pk')
 
-        if choice_pk is not None:
-            try:
-                selected_choice = attempted_question.question.choices.get(pk=choice_pk)
-            except ObjectDoesNotExist:
-                raise Http404
+        try:
+            selected_choice = attempted_question.question.choices.get(pk=choice_pk)
+        except ObjectDoesNotExist:
+            raise Http404
 
-            quiz_profile.evaluate_attempt(attempted_question, selected_choice)
+        quiz_profile.evaluate_attempt(attempted_question, selected_choice)
 
         return redirect(attempted_question)
 

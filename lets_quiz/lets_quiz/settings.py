@@ -27,7 +27,7 @@ SECRET_KEY = 'tbdy@fqf+)_@_nv71f@%8rqh02s%d@_l@_iemu35@^*r_00m9l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'letsquiz.pythonanywhere.com']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'livereload',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # third party apps
@@ -50,6 +51,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'livereload.middleware.LiveReloadScript',
+    'kolo.middleware.KoloMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',

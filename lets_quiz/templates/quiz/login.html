@@ -4,35 +4,34 @@
 {% block content %}
 {% if not request.user.is_active %}
 
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-sm-8 col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4">
-              <h1 class="mb-3 text-center">Пожалуйста,войдите в аккаунт</h1>
+    
+        
+          <ul class="container center">
+          <div class="info-text">
+          <li><h1>Пожалуйста,войдите в аккаунт</h1></li>
                 <form method="POST" action="">
                     {% csrf_token %}
                     {{form|crispy}}
-                    <input type="submit" class="btn btn-info btn-block" value="Войти">
+                    <li><input type="submit" class="btn1" value="Войти"></li>
                 </form>
-              <div class="text-center">
-                <p>или ...</p>
-                <a href="{% url 'quiz:register' %}" class="btn btn-success mb-3">Создать аккаунт</a>
-              </div>
-            </div>
+                <li><p>или ...</p></li>
+                <li><a href="{% url 'quiz:register' %}" class="btn1">Создать аккаунт</a></li>
           </div>
-        </div>
-      </div>
+            </ul>  
+        
+      
 {% else %}
 
-    <section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
-      <div class="container text-center">
-        <h1 class="display-1 text-info">MBS</h1>
-        <p class="display-4 d-none d-sm-block">Проверь свои знания.</p>
-        <p class="lead">Мы создаем разносторонние задания.</p>
-        <a href="{% url 'quiz:play' %}" class="btn btn-lg btn-info mt-1">MBS</a>
-        <a href="{% url 'quiz:leaderboard' %}" class="btn btn-lg btn-info mt-1">Таблица Лидеров</a>
-      </div>  
-    </section>
+    <div class="info-text">
+      <div class="container center">
+        <h1>СувИОС</h1>
+        <p>Проверь свои знания.</p>
+        <p>Мы создаем разносторонние задания.</p>
+        <a href="{% url 'quiz:play' %}">СувИОС</a>
+        <a href="{% url 'quiz:leaderboard' %}">Таблица Лидеров</a>
+      </div>
+    </div>  
+    
 
 {% endif %}
 

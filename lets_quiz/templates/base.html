@@ -1,62 +1,210 @@
 {% load static %}
+{% load livereload_tags %}
+{% livereload_script %}
 <!doctype html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %} {% endblock title %}</title>
-
-        <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Rubik" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Rubik" rel="stylesheet">
-
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="shortcut icon" href="url(img/img.png)" type="image/x-icon">
     {% block css %}
+    <style>
+        li.empty{
+            color: black;
+            border: none;
+        }
+
+        ul.reckvis{
+            font-size: 16px;
+            margin-top: 140px;
+            font-family: Didot, serif;
+            align-items: center;
+            align:center;
+            color: gray;
+            list-style: none;
+        }
+
+    .brand{
+        margin-left: 20px;
+        font-family: COMIC SANS MS;
+        font-size: 27px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .name{
+        font-size: 100px;
+        color: LightSeaGreen;
+        font-weight: bold;
+        font-family: monospace;
+    }
+
+    .info-text{
+        font-size: 23px;
+        font-family: Comic Sans MS, Comic Sans, cursive;
+        color: black;
+        text-decoration: none;
+        margin-left: 50px;
+    }
+
+
+    .container {
+        display: flex;
+        align: center;
+        justify-content: center;
+        text-decoration: none;
+        list-style: none;
+        color: black;
+    }
+
+    .container .center {
+        margin-top: auto;
+        display: flex;
+        align: center;
+        justify-content: center;
+        text-decoration: none;
+        list-style: none;
+        color: black;
+    }
+
+    div.navbar {
+        height: 90px;
+        margin-top: 10px;
+        padding: 5px;
+        background-size: cover;
+        font-family: COMIC SANS MS;
+    }
+    
+    header {
+        background-color: black;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 5px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 0 25px 0 black;
+    }
+    
+    header * {
+        display: inline;
+    }
+    
+    header li {
+         border-radius: 12px;
+         border-collapse: separate; 
+         text-decoration: none;
+         background-color: #008CBA;
+         border: none;
+         color: white;
+         padding: 18px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 15px;
+         margin: 4px 2px;
+    }
+    
+    header li a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn1 {
+         border-radius: 12px;
+         border-collapse: separate; 
+         text-decoration: none;
+         background-color: #008CBA;
+         border: none;
+         color: white;
+         padding: 14px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 12px;
+         margin: 4px 2px;
+    }
+
+    div.leaderboard{
+        height:auto;
+        width:1070px;
+        padding: 6px auto auto 8px;
+        background:linear-gradient(rgb(52, 102, 174) 0%, rgb(83, 144, 241) 100%);
+        border-style: none;
+        border-radius: 14px;
+        margin: auto auto auto 12%;
+        font-size: 23px;
+        font-family: Comic Sans MS, Comic Sans, cursive;
+        text-decoration: none;
+        text-align: center;
+        justify-content: center;
+    }
+
+    div.leaderboard table{
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    div.leaderboard table thead tr th{
+        color:#FFC107;
+        font-size: 28px;
+    }
+
+    div.leaderboard table tbody, div.td {
+        background-color:#CDD5D2;
+        border-style: none;
+        border-radius: 7px;
+        height: auto;
+        width:200px;
+        padding: 6px 3px 0px 7px;
+        font-size: 28px;
+    }
+
+
+    div.leaderboard h1{
+        color: white;
+    }
+    
+    </style>
     {% endblock css %}
 
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container">
-            <h1><a href="{% url 'quiz:home' %}" class="navbar-brand">
-            <strong><font face="COMIC SANS MS" size="4">Московское Суворовское Военное Училище</font></strong></a></h1>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse justify-content-end " id="navbar">
-                {% if not request.user.is_active %}
-                <a href="{% url 'quiz:login' %}" class="btn btn-info mt-1"><i class="fa fa-sign-in" aria-hidden="true"></i> Вход</a>
-                <a href="{% url 'quiz:register' %}" class="btn btn-info mt-1 mx-1"><i class="fa fa-sign-in" aria-hidden="true"></i> Регистрация</a>
-                <a href="{% url 'quiz:leaderboard' %}" class="btn btn-info mt-1 mx-1">Таблица Лидеров</a>
-                {% else %}
-                <h6 class="text-white mt-2 mr-2"><a href="{% url 'quiz:leaderboard' %}" class="text-white">Таблица Лидеров</a> |</h6>
-                <h6 class="mt-2"><a href="{% url 'quiz:play' %}" class="text-white">Давайте начнем!</a></h6>
-                <a href="{% url 'quiz:logout' %}" class="btn btn-danger mt-1 mx-1">Выйти <i class="fa fa-sign-out" aria-hidden="true"></i></a>
-                {% endif %}
-            </div>
-        </div>
+<body>
+    <div class="navbar">
+    <header>
+      <nav>
+          <a href="{% url 'quiz:home' %}" class="brand">Московское Суворовское Военное Училище</a>
+          <p color="black">/////////////////////////////////////////////////////////////////////////////////////////</p>
+          <ul>
+              {% if not request.user.is_active %}
+              <li class="btn"><a href="{% url 'quiz:login' %}" > Вход</a></li>
+              <li class="btn"><a href="{% url 'quiz:register' %}" > Регистрация</a></li>
+              <li class="btn"><a href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
+              {% else %}
+              <li class="btn"><a href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
+              <li class="btn"><a href="{% url 'quiz:play' %}"> Играть </a></li> 
+              <li class="btn"><a href="{% url 'quiz:logout' %}" > Выйти </a></li>
+              {% endif %}
+        
 
-    </nav>
+          </ul>
+      </nav>
+    </header>
+  </div>
 
     {% block content %}
     {% endblock content %}
-    <footer class="bg-light text-muted py-0">
-        <div class="container py-4">
-            <ul class="list-inline mb-0 text-center">
-                <li class="list-inline-item">&copy; Москва 2023.</li>
-                <li class="list-inline-item">Все права защищены.</li>
-            </ul>
-        </div>
-    </footer>
-    <!-- jQuery first, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/12.1.5/js/smooth-scroll.min.js" integrity="sha256-MMt0/21G3z0Zg4ET1kI3HC9npItDowkitRDVr0FhCxA=" crossorigin="anonymous"></script>
-
+    <div class="container">
+        <ul class="reckvis">
+            <li>@ Москва 2023</li>
+            <li>  Все права защищены</li>
+        </ul>
+    </div>    
+    
     <!-- <script src="{% static 'js/main.js' %}"></script>
     {% block js %}{% endblock js %} -->
 </body>

@@ -1,25 +1,27 @@
 {% extends 'base.html' %}
-{% block title %} MBS | Домашняя страница {% endblock title %}
+{% block title %} СувИОС | Домашняя страница {% endblock title %}
 {% block content %}
+    <body>
+      
+        <ul class="container center">
+          <li><h1 class="name">СувИОС</h1></li>
+          <div class="info-text">
+            <li><p>Проверьте свои знания.</p></li>
+              <li><p>Мы создаем расносторонние задания.</p></li>
+          {% if not request.user.is_active %}
 
-    <section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
-      <div class="container text-center">
-        <h5 class="lead"><font color="LightSeaGreen">Добро пожаловать, {{ request.user.username }}  </font></h5>
-        <h1 class="display-1 text-info">MBS</h1>
-        <p class="display-4 d-none d-sm-block">Проверьте свои знания.</p>
-        <p class="lead">Мы создаем расносторонние задания.</p>
+          <li><p>Зарегистрируетесь, если у вас нет еще аккаунта.</p></li>
+          <li><p><strong> Начните здесь:</strong></p></li>
+          <li><a href="{% url 'quiz:register' %}" class="btn1"> Зарегистрируетесь</a></li>
 
-        {% if not request.user.is_active %}
-
-        <p class="lead">Зарегистрируетесь, если у вас нет еще аккаунта.</p>
-        <p><strong> Начните здесь:</strong></p>
-        <a href="{% url 'quiz:register' %}" class="btn btn-lg btn-info mt-1"><i class="fa fa-user-plus" aria-hidden="true"></i> Зарегистрируетесь</a>
-
-        {% else %}
-        <a href="{% url 'quiz:play' %}" class="btn btn-lg btn-info mt-1">Играть</a>
-        <a href="{% url 'quiz:leaderboard' %}" class="btn btn-lg btn-info mt-1">Таблица Лидеров</a>
-        {% endif %}
-      </div>  
-    </section>
+          {% else %}
+          <li><h5 color="LightSeaGreen">Добро пожаловать, {{ request.user.username }} </h5></li>
+            <li><a href="{% url 'quiz:play' %}" class="btn1">Играть</a></li>
+              <li><a href="{% url 'quiz:leaderboard' %}" class="btn1">Таблица Лидеров</a></li>
+          {% endif %}
+          </div>
+        </ul>
+      
+    </body>
 
 {% endblock content %}

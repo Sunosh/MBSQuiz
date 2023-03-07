@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block title %} MBS | Результат {% endblock title %}
 {% block content %}
-<div class="container">
-	<div class="jumbotron my-4">
+<div margin-left="20%">
+	<div class="info-text">
 
-	   	<h3 class="text-info">{{ attempted_question.question.html|safe }}</h3>
+	   	<h3>{{ attempted_question.question.html|safe }}</h3>
 
 		<p>
 		    <strong>Ваш ответ: </strong>
@@ -12,12 +12,12 @@
 		</p>
 
 		{% if attempted_question.selected_choice.is_correct %}
-		<h4 class="text-success">Вы ответили правильно!</h4>
+		<h4 color="green">Вы ответили правильно!</h4>
 		{% else %}
-		<h4 class="text-danger">Вы ответили неправильно.</h4>
+		<h4 color="red">Вы ответили неправильно.</h4>
 		{% endif %}
 
-		<a class="btn btn-info" href="{% url 'quiz:play' %}">Следующий вопрос</a>
+		<a class="btn1" href="{% url 'quiz:play' %}">Следующий вопрос</a>
 	</div>
 </div>
 
