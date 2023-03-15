@@ -1,39 +1,32 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% block title %} MBS | Регистрация {% endblock title %}
+{% block title %}  СувИОС | Регистрация {% endblock title %}
 {% block content %}
 {% if not request.user.is_active %}
 
-     <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-sm-8 col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4">
-              <h1 class="mb-3 text-center">Создайте новый аккаунт</h1>
-              <form class="mb-3" method="POST" action="">
-                {% csrf_token %}
-		        {{form|crispy}}
-		        <input type="submit" class="btn btn-info btn-block mb-3" value="Регистрация">
-              </form>
-              <div class="text-center">
-                <p>или ...</p>
-                <a href="{% url 'quiz:login' %}" class="btn btn-success">Вход</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+        <ul class="form-chatgpt">
+          <li><h1>Пожалуйста, зарегистрируетесь</h1></li>
+                <form method="POST" action="" class="login-form">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <li><input type="submit" class="login-form btn" value="Зарегистрироваться"></li>
+                    <li><p color="black">или ...</p></li>
+                    <li><button class="login-form btn reg"><a href="{% url 'quiz:login' %}" style="text-decoration: none; color: white; height: auto;">Вход</a></button></li>
+                </form>
+      </ul>
 
 {% else %}
 
-    <section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
-      <div class="container text-center">
-        <h1 class="display-1 text-info">MBS</h1>
-        <p class="display-4 d-none d-sm-block">Проверь свои знания.</p>
-        <p class="lead">Мы создаем разносторонние задания.</p>
-        <a href="{% url 'quiz:play' %}" class="btn btn-lg btn-info mt-1">MBS</a>
-        <a href="{% url 'quiz:leaderboard' %}" class="btn btn-lg btn-info mt-1">Таблица Лидеров</a>
+      <div class="container center">
+        <div class="info-text">
+        <h1>СувИОС</h1>
+        <p>Проверь свои знания.</p>
+        <p>Мы создаем разносторонние задания.</p>
+        <a href="{% url 'quiz:play' %}" color="black">СувИОС</a>
+        <a href="{% url 'quiz:leaderboard' %}" class="btn1">Таблица Лидеров</a>
+        </div>
       </div>  
-    </section>
 
 {% endif %}
 

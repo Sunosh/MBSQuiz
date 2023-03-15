@@ -1,22 +1,15 @@
 {% extends 'base.html' %}
-{% block title %} MBS |  Добро пожаловать!{% endblock title %}
+{% block title %} СувИОС |  Добро пожаловать!{% endblock title %}
 {% block content %}
-<div class="container my-4">
-    <div class="jumbotron">
-
-	      <h2 class="text-center text-info">Поздравляем! Вы успешно вошли.</h2>
-	      <h3 class="text-info text-center">Перед прохождением предварительно ознакомтесь с правилами</h3>
-
-        <div class="row">
-
-            <div class="card border-info mx-4 my-4">
-                <div class="card-body text-info">
-                    <h4 class="card-title">Правила :</h4>
-                    <p class="card-text">
+<div class="user-home">
+	      <h2>Поздравляем! Вы успешно вошли.</h2>
+	      <h3>Перед прохождением предварительно ознакомтесь с правилами</h3>
+                    <h4><strong>Правила : </strong></h4>
+                    <div class="ul-user-home">
                         <ul style="list-style:decimal;">
                             <li>Все вопросы различаются.</li>
-                            <li><span class="text-danger">Только один ответ правильный.</span></li>
-                            <li>Каждый правильный ответ измеряется в баллах. <span class="text-danger">4 балла за каждый правильный ответ.</span>
+                            <li><span color="red">Только один ответ правильный.</span></li>
+                            <li>Каждый правильный ответ измеряется в баллах. <span color="red">4 балла за каждый правильный ответ.</span>
                             </li>
                             <li>Каждый вопрос может быть показан всего один раз.</li>
                             <li>Попытайтесь ответить как можно быстрее.</li>
@@ -24,13 +17,10 @@
                             <li>Вопросы появляются разные для разных пользователей.</li>
                             <li>Результаты ответа вы увидите сразу после отправки ответа.</li>
                         </ul>
-                    </p>
-                    <a href="{% url 'quiz:play' %}" class="btn btn-info">Играть</a>
-                </div>  
-                <div class="card-footer">Правила правлены 1 февраля 2023 года</div>
-            </div>  
-        </div>  
-
+                        </div>
+                    <a href="{% url 'quiz:play' %}" class="btn1" style="margin-left: 30px; margin-bottom: 7px;">Играть</a>
     </div>
+                <div>Правила правлены 1 февраля 2023 года</div>
+
 </div>
 {% endblock content %}

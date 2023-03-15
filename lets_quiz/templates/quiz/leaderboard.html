@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %} MBS | Таблица Лидеров {% endblock title %}
 {% block content %}
-<div class="container">
-    <h1 class="text-center my-4"><span class="badge badge-info"><i class="fa fa-trophy" aria-hidden="true"></i> Топ {{ total_count }} игроков <i class="fa fa-trophy" aria-hidden="true"></i></span></h1>
-    <table class="table table-striped table-bordered">
+  <div class="lead">
+    <h1><span><i aria-hidden="true"></i> Рейтинг игроков <i aria-hidden="true"></i></span></h1>
+    <table>
         <thead>
             <tr>
                 <th>Позиция</th>
@@ -14,12 +14,12 @@
         <tbody>
             {% for quiz_profile in top_quiz_profiles %}
             <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ quiz_profile.user.username }}</td>
-                <td>{{ quiz_profile.total_score }}</td>
+               <td class="small">{{ forloop.counter }}</td>
+               <td class="small">{{ quiz_profile.user.username }}</td>
+               <td class="small">{{ quiz_profile.total_score }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-</div>
+  </div>
 {% endblock content %}
