@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} СувИОС | Домашняя страница {% endblock title %}
+{% block content %}
+    <body class="none">
+      <div class="home-back">
+          <ul class="container center">
+          <li><h1 class="name">СувИОС</h1></li>
+          <div class="info-text">
+            <li><p>Проверьте свои знания.</p></li>
+              <li><p>Мы создаем расносторонние задания.</p></li>
+          {% if not request.user.is_active %}
+
+          <li><p>Зарегистрируетесь, если у вас нет еще аккаунта.</p></li>
+          <li><p><strong> Начните здесь:</strong></p></li>
+          <li><a href="{% url 'quiz:register' %}" class="btn1"> Зарегистрируетесь</a></li>
+
+          {% else %}
+          <li><h5 color="LightSeaGreen">Добро пожаловать, {{ request.user.username }} </h5></li>
+            <li><a href="{% url 'quiz:play' %}" class="btn1">Играть</a></li>
+              <li><a href="{% url 'quiz:leaderboard' %}" class="btn1">Таблица Лидеров</a></li>
+          {% endif %}
+          </div>
+        </ul>
+      </div>
+    </body>
+
+{% endblock content %}

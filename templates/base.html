@@ -1,0 +1,412 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="shortcut icon" href="url(img/img.png)" type="image/x-icon">
+    {% block css %}
+    <style>
+        .login-form {
+         width: 400px;
+         background-color: LightGray;
+         box-shadow: 8px 10px 7px rgba(0, 0, 0, 0.1);
+         padding: 30px;
+         border-radius: 12px;
+         }
+
+        .login-form label{
+             font-family: Comic Sans MS, Comic Sans, cursive;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: solid 1px;
+            border-radius: 10px;
+            background: linear-gradient(146deg, #f2e3e3,#f9f8fb,#e0d9f2);
+            font-size: 16px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+        .login-form .btn {
+             background: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);
+             color: #FFFFFF;
+             padding: auto;
+             border: none;
+             border-radius: 12px;
+             font-size: 16px;
+        }
+
+        .login-form .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: 0.5s;
+        }
+
+        .login-form .btn .reg{
+             background: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);
+             color: #FFFFFF;
+             padding: auto;
+             border: none;
+             border-radius: 12px;
+             font-size: 16px;
+             text-decoration: none;
+             text-color: #FFFFFF;
+             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);}
+
+        .login-form .btn .reg:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+            transition: 0.5s;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+            transition: 0.5s;
+        }
+        .btn1:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+            transition: 0.5s;
+        }
+
+        li.empty{
+            color: black;
+            border: none;
+        }
+
+        ul.reckvis{
+            font-size: 16px;
+            margin-top: 140px;
+            font-family: Didot, serif;
+            align-items: center;
+            align:center;
+            color: gray;
+            list-style: none;
+        }
+
+    .brand{
+        margin-top: 30px;
+        margin-left: 20px;
+        font-family: COMIC SANS MS, sans-serif;
+        font-size: 27px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .name{
+        font-size: 100px;
+        color: LightSeaGreen;
+        font-weight: bold;
+        font-family: monospace;
+    }
+
+    login-container{
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       height: 100vh;
+       background-color: #f2f2f2;
+   }
+   .form-chatgpt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      list-style: none;
+      font-family: Comic Sans MS, Comic Sans, cursive;
+   }
+
+    .form-text{
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+        font-size: 23px;
+        font-family: Comic Sans MS, Comic Sans, cursive;
+        color: black;
+        text-decoration: none;
+        }
+    .info-text{
+        font-size: 23px;
+        font-family: Comic Sans MS, Comic Sans, cursive;
+        color: black;
+        text-decoration: none;
+        margin-left: 50px;
+    }
+
+
+    .container {
+        display: flex;
+        align: center;
+        justify-content: center;
+        text-decoration: none;
+        list-style: none;
+        color: black;
+    }
+
+    .container .center {
+        margin-top: auto;
+        display: flex;
+        align: center;
+        justify-content: center;
+        text-decoration: none;
+        list-style: none;
+        color: black;
+    }
+
+    div.navbar {
+        height: 90px;
+        margin-top: 10px;
+        padding: 5px;
+        background-size: cover;
+        font-family: COMIC SANS MS;
+    }
+    
+    header {
+        background: linear-gradient(147deg, #070112,#070112, #250f2b);
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 5px;
+        height: 85px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 0 25px 0 black;
+    }
+    
+    header * {
+        display: inline;
+    }
+    
+    header li {
+         border-radius: 12px;
+         border-collapse: separate; 
+         text-decoration: none;
+         background-color: #008CBA;
+         border: none;
+         color: white;
+         padding: 18px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 15px;
+         margin: 4px 2px;
+    }
+    
+    header li a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn1 {
+         border-radius: 12px;
+         border-collapse: separate; 
+         text-decoration: none;
+         background-color: #008CBA;
+         border: none;
+         color: white;
+         padding: 14px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 12px;
+         margin: 4px 2px;
+    }
+    .nav{
+        list-type: none;
+        margin-left: 480px;
+        display: inline-block;
+        }
+
+    div.leaderboard{
+        height:auto;
+        width:1070px;
+        padding: 6px auto auto 8px;
+        background:linear-gradient(rgb(52, 102, 174) 0%, rgb(83, 144, 241) 100%);
+        border-style: none;
+        border-radius: 14px;
+        margin: auto auto auto 12%;
+        font-size: 23px;
+        font-family: Comic Sans MS, Comic Sans, cursive;
+        text-decoration: none;
+        text-align: center;
+        justify-content: center;
+    }
+
+    div.leaderboard table{
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+        input[type="checkbox"] {
+  / Hide the default checkbox /
+  display: none;
+}
+/ Style the label for the checkbox /
+label.checkbox {
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  margin-right: 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
+/ Create the checkmark /
+label.checkbox::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+/ Style the checkmark when the checkbox is checked /
+input[type="checkbox"]:checked + label.checkbox::before {
+  background-color: #2196F3;
+  border-color: #2196F3;
+}
+/ Styling for radio buttons /
+input[type="radio"] {
+  / Hide the default radio button /
+  display: none;
+}
+/ Style the label for the radio button */
+label.radio {
+  display: inline-block;
+  }
+    div.leaderboard table thead tr th{
+        color:#FFC107;
+        font-size: 28px;
+    }
+
+    div.leaderboard table tbody, div.td {
+        background-color:#CDD5D2;
+        border-style: none;
+        border-radius: 7px;
+        height: auto;
+        width:200px;
+        padding: 6px 3px 0px 7px;
+        font-size: 28px;
+    }
+    td.small {
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  text-align: center;
+  color: #333;
+  margin: 5 px 4px 0px 3px;
+}
+
+    td.small:hover{
+            background-color: #ddd;
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: 0.5s;
+        }
+    div.lead{
+            background: linear-gradient(85deg, #fb63f9, #c2e534);
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 800px;
+            height: calc(auto+20px);
+            border-radius: 10px;
+            border: none;
+            padding-left: 20px;
+            margin-left: 28%;
+
+            }
+        div.lead tbody tr, div.lead thead tr{
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            }
+
+
+
+    div.leaderboard h1{
+        color: white;
+    }
+
+    .user-home{
+        background: linear-gradient(to bottom, #ff9999 0%, #99ccff 100%);
+        text-color: black;
+        border: none;
+        border-radius: 12px;
+        margin: calc(auto+20px)
+        box-shadow: 0 13px 20px rgba(0, 0, 0, 0.1);
+        width: 800px;
+        height: calc(auto+20px);
+        margin-left: calc(50%-400px);
+        padding-left:  10px;
+
+    }
+    .ul-user-home{
+        background-color: LightGray;
+        box-shadow: 6px 10px 20px rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 12px;
+        list-style: none;
+        width: 710px;
+        height: auto;
+        font-family: sans-serif;
+
+    }
+
+    
+    </style>
+    {% endblock css %}
+
+</head>
+<body>
+    <div class="navbar">
+    <header>
+      <nav>
+          <a href="{% url 'quiz:home' %}" class="brand">Московское Суворовское Военное Училище</a><a color="black">==)</a>
+          <ul>
+              {% if not request.user.is_active %}
+              <li class="btn" style="margin-left: 480px;"><a href="{% url 'quiz:login' %}" > Вход</a></li>
+              <li class="btn"><a href="{% url 'quiz:register' %}" > Регистрация</a></li>
+              <li class="btn"><a href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
+              {% else %}
+              <li class="btn" style="margin-left: 480px;"><a href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
+              <li class="btn"><a href="{% url 'quiz:play' %}"> Играть </a></li> 
+              <li class="btn"><a href="{% url 'quiz:logout' %}" > Выйти </a></li>
+
+              {% endif %}
+        
+
+          </ul>
+      </nav>
+    </header>
+  </div>
+
+    {% block content %}
+    {% endblock content %}
+    <div class="container">
+        <ul class="reckvis">
+            <li>@ Москва 2023</li>
+            <li>  Все права защищены</li>
+        </ul>
+    </div>    
+    
+    <!-- <script src="{% static 'js/main.js' %}"></script>
+    {% block js %}{% endblock js %} -->
+</body>
+</html>

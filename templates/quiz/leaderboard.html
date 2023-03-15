@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %} MBS | Таблица Лидеров {% endblock title %}
+{% block content %}
+  <div class="lead">
+    <h1><span><i aria-hidden="true"></i> Рейтинг игроков <i aria-hidden="true"></i></span></h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Позиция</th>
+                <th>Имя</th>
+                <th>Счет</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quiz_profile in top_quiz_profiles %}
+            <tr>
+               <td class="small">{{ forloop.counter }}</td>
+               <td class="small">{{ quiz_profile.user.username }}</td>
+               <td class="small">{{ quiz_profile.total_score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+{% endblock content %}

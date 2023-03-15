@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} СувИОС | {{ title }} {% endblock title %}
+{% block content %}
+{% if not request.user.is_active %}
+
+    
+        
+          <ul class="form-chatgpt">
+          <li><h1>Пожалуйста,войдите в аккаунт</h1></li>
+                <form method="POST" action="" class="login-form">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <li><input type="submit" class="login-form btn" value="Войти"></li>
+                    <li><p color="black">или ...</p></li>
+                    <li><button class="login-form btn reg"><a href="{% url 'quiz:register' %}" style="text-decoration: none; color: white; height: auto;">Создать аккаунт</a></button></li>
+                </form>
+            </ul>  
+        
+      
+{% else %}
+
+    <div class="info-text">
+      <div class="container center">
+        <h1>СувИОС</h1>
+        <p>Проверь свои знания.</p>
+        <p>Мы создаем разносторонние задания.</p>
+        <a href="{% url 'quiz:play' %}">СувИОС</a>
+        <a href="{% url 'quiz:leaderboard' %}">Таблица Лидеров</a>
+      </div>
+    </div>  
+    
+
+{% endif %}
+
+{% endblock content %}
