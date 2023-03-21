@@ -15,6 +15,11 @@ class Question(TimeStampedModel):
     def __str__(self):
         return self.html
 
+    class Meta:
+        verbose_name = _('Вопрос')
+        verbose_name_plural = _('Вопросы')
+
+
 
 class Choice(TimeStampedModel):
     MAX_CHOICES_COUNT = 4
@@ -26,10 +31,15 @@ class Choice(TimeStampedModel):
     def __str__(self):
         return self.html
 
+    class Meta:
+        verbose_name = _('Вариант ответа')
+        verbose_name_plural = _('Варианты ответа')
+
+
 
 class QuizProfile(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    total_score = models.DecimalField(_('Total Score'), default=0, decimal_places=2, max_digits=10)
+    total_score = models.DecimalField(_('Общий счет'), default=0, decimal_places=2, max_digits=610)
 
     def __str__(self):
         return f'<QuizProfile: user={self.user}>'
@@ -63,6 +73,10 @@ class QuizProfile(TimeStampedModel):
         self.total_score = marks_sum or 0
         self.save()
 
+    class Meta:
+        verbose_name = _('Профиль')
+        verbose_name_plural = _('Профили')
+
 
 class AttemptedQuestion(TimeStampedModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -73,3 +87,29 @@ class AttemptedQuestion(TimeStampedModel):
 
     def get_absolute_url(self):
         return f'/submission-result/{self.pk}/'
+
+
+
+
+class Subjects(TimeStampedModel):
+    title = models.CharField(_('Название предмета'), max_length=100)
+    questions = models.ManyToManyField(Question, related_name='subjects')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = _('Предмет')
+        verbose_name_plural = _('Предметы')
+
+
+class Grade(TimeStampedModel):
+    num = models.PositiveSmallIntegerField(_('Номер класса'), default=5)
+    subject = models.ManyToManyField(Subjects, related_name='grades')
+
+    def __str__(self):
+        return self.num
+
+    class Meta:
+        verbose_name = _(' Номер класса')
+        verbose_name_plural = _('Номера Классов')
