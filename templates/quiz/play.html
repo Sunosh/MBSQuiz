@@ -1,8 +1,30 @@
 {% extends 'base.html' %}
+{% block js %}
+<script>
+     let timerShow = document.getElementById("timer"); // Берём блок для показа времени
+
+    timeMinut = 60
+
+
+    timer = setInterval(function(){
+     seconds = timeMinut%60
+         minutes = timeMinut/60%60
+         hour = timeMinut/60/60%60
+ if (timeMinut <= 0) {
+  clearInterval(timer);
+  document.getElementById("submit_answer").submit();
+ } else{
+  let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
+  timerShow.innerHTML = strTimer;
+ }
+ --timeMinut;
+    }, 1000)
+
+</script>
+{% endblock js %}
 
 {% block content %}
 {% if question is None %}
-
 <div class="container center">
   <div class="info-text">
     <h1> Вы ответили на все вопросы. </h1>
@@ -14,7 +36,6 @@
 
 <div margin-left="20%">
   <div class="info-text">
-
     <h3>{{ question.html|safe }}</h3>
     <form class="form" action="" method="post">
         {% csrf_token %}
@@ -30,7 +51,7 @@
         {% endfor %}
         <input class="btn1" type="submit" value="Submit">
     </form>
-      <div id="timer">
+      <div class="timer "id="timer">
       </div>
   </div>
 </div>
