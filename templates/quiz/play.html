@@ -29,27 +29,9 @@
 
         {% endfor %}
         <input class="btn1" type="submit" value="Submit">
-        <script type="text/javascript">
-    let timerShow = document.getElementById("timer"); // Берём блок для показа времени
-
-    timeMinut = 60
-
-
-    timer = setInterval(function(){
-     seconds = timeMinut%60
-         minutes = timeMinut/60%60
-         hour = timeMinut/60/60%60
- if (timeMinut <= 0) {
-  clearInterval(timer);
-  document.getElementById("submit_answer").submit();
- } else{
-  let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
-  timerShow.innerHTML = strTimer;
- }
- --timeMinut;
-    }, 1000)
-</script>
     </form>
+      <div id="timer">
+      </div>
   </div>
 </div>
 {% endif %}
