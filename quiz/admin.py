@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Choice, Grade, Subjects, QuizProfile
+from .models import Question, Choice, Subjects, QuizProfile, AttemptedQuestion
 from .forms import QuestionForm, ChoiceForm, ChoiceInlineFormset
 # Register your models here.
 
@@ -16,9 +16,10 @@ class ChoiceInline(admin.TabularInline):
 class QuestionAdmin(admin.ModelAdmin):
     model = Question
     inlines = (ChoiceInline, )
-    list_display = ['html', 'is_published']
-    list_filter = ['is_published']
+    list_display = ['html', 'tour', 'is_published']
+    list_filter = ['tour', 'is_published']
     search_fields = ['html', 'choices__html']
+    fields = ('html', 'is_published', 'tour')
     actions = None
     form = QuestionForm
 
@@ -33,5 +34,5 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Subjects)
-admin.site.register(Grade)
 admin.site.register(QuizProfile)
+admin.site.register(AttemptedQuestion)

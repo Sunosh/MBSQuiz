@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Выбор предмета {% endblock title%}</title>
+</head>
+
+{% block content %}
+
+
+<div>
+        {% for subject in subjects %}
+            <div class="subject-container">
+            № {{forloop.counter}}. Название: {{subject.title}} Класс: {{subject.grade}}
+            </div>
+        {% endfor %}
+
+</div>
+
+{% endblock content %}

@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %} {% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="shortcut icon" href="url(img/img.png)" type="image/x-icon">
     {% block css %}
     <style>
-        .login-form {
+    .login-form {
          width: 400px;
          background-color: LightGray;
          box-shadow: 8px 10px 7px rgba(0, 0, 0, 0.1);
@@ -153,6 +152,27 @@
         list-style: none;
         color: black;
     }
+    .container1 {
+        display: flex;
+        align: center;
+        justify-content: center;
+        text-decoration: none;
+        list-style: none;
+        color: black;
+    }
+    .container2 {
+        display: flex;
+        align: center;
+        justify-content: center;
+        text-decoration: none;
+        list-style: none;
+        color: black;
+    }
+    .container3 {
+        display: flex;
+        align: center;
+    }
+
 
     .container .center {
         margin-top: auto;
@@ -171,7 +191,7 @@
         background-size: cover;
         font-family: COMIC SANS MS;
     }
-    
+
     header {
         background: linear-gradient(147deg, #070112,#070112, #250f2b);
         position: fixed;
@@ -183,14 +203,14 @@
         align-items: center;
         box-shadow: 0 0 25px 0 black;
     }
-    
+
     header * {
         display: inline;
     }
-    
+
     header li {
          border-radius: 12px;
-         border-collapse: separate; 
+         border-collapse: separate;
          text-decoration: none;
          background-color: #008CBA;
          border: none;
@@ -202,7 +222,7 @@
          font-size: 15px;
          margin: 4px 2px;
     }
-    
+
     header li a {
         color: white;
         text-decoration: none;
@@ -210,7 +230,7 @@
 
     .btn1 {
          border-radius: 12px;
-         border-collapse: separate; 
+         border-collapse: separate;
          text-decoration: none;
          background-color: #008CBA;
          border: none;
@@ -309,7 +329,7 @@ label.radio {
   font-size: 14px;
   text-align: center;
   color: #333;
-  margin: 5 px 4px 0px 3px;
+  margin: 5px 4px 0px 3px;
 }
 
     td.small:hover{
@@ -349,7 +369,7 @@ label.radio {
         text-color: black;
         border: none;
         border-radius: 12px;
-        margin: calc(auto+20px)
+        margin: calc(auto+20px);
         box-shadow: 0 13px 20px rgba(0, 0, 0, 0.1);
         width: 800px;
         height: calc(auto+20px);
@@ -374,12 +394,20 @@ label.radio {
         font-size: 13px;
         align-items: center;
         justify-content: center;
-        background: #LightGray;
+        background-color: #LightGray;
         border-radius: 12px;
         box-shadow: 0 13px 20px rgba(0, 0, 0, 0.1);
         border-bottom: 1px solid #fff;
     }
-    
+
+    .subject-container {
+        width: auto;
+        height: auto;
+        border-radius: 12px;
+        background-color: LightGray;
+        margin: 1px auto 1px 20px;
+        padding-left: 4px;
+    }
     </style>
     {% endblock css %}
 
