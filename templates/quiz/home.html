@@ -18,7 +18,7 @@
           <li><h5 color="LightSeaGreen">Добро пожаловать, {{ request.user.username }} </h5></li>
             <li><a href="{% url 'quiz:play' %}" class="btn1">Играть</a></li>
               <li><a href="{% url 'quiz:leaderboard' %}" class="btn1">Таблица Лидеров</a></li>
-               <li><a href="{% url 'quiz:subjects_detail' %}" class="btn1">Обьекты</a></li>
+               <li><a href="{% url 'quiz:subjects' %}" class="btn1">Обьекты</a></li>
           {% endif %}
           </div>
         </ul>

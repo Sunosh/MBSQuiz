@@ -35,13 +35,13 @@ def leaderboard(request):
 @login_required()
 def play(request):
     quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
-    subjects_with_grade_1_to_11 = Subjects.objects.filter(grade__gte=1, grade__lte=11).order_by('grade')
-
-    subject_tuple = ()
-
-    for subjects in list(subjects_with_grade_1_to_11.values_list('grade', flat=True)):
-        subject_tuple.append(subjects)
-    list(set(subject_tuple))
+    # subjects_with_grade_1_to_11 = Subjects.objects.filter(grade__gte=1, grade__lte=11).order_by('grade')
+    #
+    # subject_tuple = ()
+    #
+    # for subjects in list(subjects_with_grade_1_to_11.values_list('grade', flat=True)):
+    #     subject_tuple.append(subjects)
+    # list(set(subject_tuple))
 
 
     if request.method == 'POST':

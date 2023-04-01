@@ -46,8 +46,6 @@ class QuizProfile(TimeStampedModel):
         return f'<QuizProfile: user={self.user}>'
 
 
-
-
     # получение нового вопроса
     def get_tour_question(self):
         used_questions_pk = AttemptedQuestion.objects.filter(quiz_profile=self).values_list('question__pk', flat=True)
