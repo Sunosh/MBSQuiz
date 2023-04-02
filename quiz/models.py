@@ -55,6 +55,9 @@ class QuizProfile(TimeStampedModel):
         remaining_questions_tour2 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=2)
         if remaining_questions_tour2.exists():
             return random.choice(remaining_questions_tour2)
+    class Meta:
+        verbose_name = _('Профиль')
+        verbose_name_plural = _('Профили')
 
     # получение нового варианта ответа
     def create_attempt(self, question):

@@ -3,9 +3,59 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
-from django.views.generic.detail import DetailView
+from django.views import View
+from django.utils.decorators import method_decorator
 from .models import QuizProfile, Question, AttemptedQuestion, Subjects
 from .forms import UserLoginForm, RegistrationForm
+
+
+@method_decorator(login_required, name='dispatch')
+class PlayView(View):
+    template_name = 'quiz/play.html'
+
+    def get_tour_question(self, quiz_profile):
+        used_questions_pk = AttemptedQuestion.objects.filter(quiz_profile=quiz_profile).values_list('question__pk', flat=True)
+        remaining_questions_tour1 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=1)
+        if remaining_questions_tour1.exists():
+            return choice(remaining_questions_tour1)
+        remaining_questions_tour2 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=2)
+        if remaining_questions_tour2.exists():
+            return choice(remaining_questions_tour2)
+
+    def get(self, request, *args, **kwargs):
+        quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
+
+        question = self.get_tour_question(quiz_profile)
+
+        if question is not None:
+            attempted_question = AttemptedQuestion.objects.create(
+                quiz_profile=quiz_profile,
+                question=question,
+            )
+        else:
+            attempted_question = None
+
+        context = {
+            'question': question,
+        }
+
+        return render(request, self.template_name, context=context)
+
+    def post(self, request, *args, **kwargs):
+        quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
+
+        if request.method == 'POST':
+
+        attempted_question = quiz_profile.attempts.select_related('question').get(question__pk=question_pk)
+
+        try:
+            selected_choice = attempted_question.question.choices.get(pk=choice_pk)
+        except ObjectDoesNotExist:
+            raise Http404
+
+        quiz_profile.evaluate_attempt(attempted_question, selected_choice)
+
+        return redirect(attempted_question)
 
 
 # первейшая(которая открывается при первом запуске) страница
