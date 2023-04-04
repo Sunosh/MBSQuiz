@@ -12,6 +12,7 @@ class Question(TimeStampedModel):
     is_published = models.BooleanField(_('Has been published?'), default=False, null=False) # поле возможности публикации
     maximum_marks = models.DecimalField(_('Maximum Marks'), default=4, decimal_places=2, max_digits=6) # максимальное количество оценок
     tour = models.PositiveSmallIntegerField(_('Tour'), default=1) # номер тура
+    image = models.ImageField(_('Image'), default=None, upload_to='questions/') # изображение к вопросу
 
     def __str__(self):
         return self.html
@@ -46,15 +47,6 @@ class QuizProfile(TimeStampedModel):
         return f'<QuizProfile: user={self.user}>'
 
 
-    # получение нового вопроса
-    def get_tour_question(self):
-        used_questions_pk = AttemptedQuestion.objects.filter(quiz_profile=self).values_list('question__pk', flat=True)
-        remaining_questions_tour1 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=1)
-        if remaining_questions_tour1.exists():
-            return random.choice(remaining_questions_tour1)
-        remaining_questions_tour2 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=2)
-        if remaining_questions_tour2.exists():
-            return random.choice(remaining_questions_tour2)
     class Meta:
         verbose_name = _('Профиль')
         verbose_name_plural = _('Профили')

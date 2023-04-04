@@ -7,24 +7,24 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from .models import QuizProfile, Question, AttemptedQuestion, Subjects
 from .forms import UserLoginForm, RegistrationForm
+import random
 
 
-@method_decorator(login_required, name='dispatch')
 class PlayView(View):
     template_name = 'quiz/play.html'
 
     def get_tour_question(self, quiz_profile):
-        used_questions_pk = AttemptedQuestion.objects.filter(quiz_profile=quiz_profile).values_list('question__pk', flat=True)
+        used_questions_pk = AttemptedQuestion.objects.filter(quiz_profile=quiz_profile).values_list('question__pk',
+                                                                                                    flat=True)
         remaining_questions_tour1 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=1)
         if remaining_questions_tour1.exists():
-            return choice(remaining_questions_tour1)
+            return random.choice(remaining_questions_tour1)
         remaining_questions_tour2 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=2)
         if remaining_questions_tour2.exists():
-            return choice(remaining_questions_tour2)
+            return random.choice(remaining_questions_tour2)
 
     def get(self, request, *args, **kwargs):
         quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
-
         question = self.get_tour_question(quiz_profile)
 
         if question is not None:
@@ -43,9 +43,8 @@ class PlayView(View):
 
     def post(self, request, *args, **kwargs):
         quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
-
-        if request.method == 'POST':
-
+        question_pk = request.POST.get('question_pk')
+        choice_pk = request.POST.get('choice_pk')
         attempted_question = quiz_profile.attempts.select_related('question').get(question__pk=question_pk)
 
         try:
@@ -55,7 +54,13 @@ class PlayView(View):
 
         quiz_profile.evaluate_attempt(attempted_question, selected_choice)
 
-        return redirect(attempted_question)
+        play_again = request.POST.get('play_again')
+
+        if play_again:
+            quiz_profile.attempts.all().delete()
+            return redirect('quiz:play_view')
+        else:
+            return redirect(attempted_question)
 
 
 # первейшая(которая открывается при первом запуске) страница

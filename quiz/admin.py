@@ -19,7 +19,7 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = ['html', 'tour', 'is_published']
     list_filter = ['tour', 'is_published']
     search_fields = ['html', 'choices__html']
-    fields = ('html', 'is_published', 'tour')
+    fields = ('html', 'is_published', 'tour', 'image')
     actions = None
     form = QuestionForm
 

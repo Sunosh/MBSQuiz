@@ -29,6 +29,21 @@
   <div class="info-text">
     <h1> Вы ответили на все вопросы. </h1>
     <a href="{% url 'quiz:leaderboard' %}" class="btn1">Смотрите таблицу лидеров здесь</a>
+    <form method="post" action="{% url 'quiz:play' %}">
+        {% csrf_token %}
+        <input type="hidden" name="play_again" value="1">
+        <button type="submit" class="btn1">Играть снова</button>
+    </form>
+
+      {% if quiz_profile.attempts.exists %}
+    <form method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="play_again" value="True">
+      <p>Хотите еще раз?</p>
+      <button type="submit" class="btn1">Играть заново</button>
+    </form>
+      {% endif %}
+
   </div>
 </div>
 
@@ -36,7 +51,7 @@
 
 <div margin-left="20%">
   <div class="info-text">
-    <h3>{{ question.html|safe }}</h3>
+    <h3>{{ question.html|safe }}</h3><img src=" {{ question.image.url }} ">
     <form class="form" action="" method="post">
         {% csrf_token %}
         <input type="hidden" name="question_pk" value="{{ question.pk }}">
