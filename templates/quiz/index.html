@@ -1,0 +1,112 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Grappelli' %}{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'grappelli/css/grappelli.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block css %}
+<style>
+    /* styles for the navigation breadcrumbs */
+.breadcrumbs {
+  color: hotpink;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+/* styles for the main module */
+.module {
+  background-color: #666666;
+}
+
+/* styles for the main module's heading */
+.module h2 {
+  font-size: 2.5rem;
+  color: chartreuse;
+}
+
+/* styles for the table */
+table {
+  border-color: #ff69b4;
+  border-style: dashed;
+}
+
+/* styles for the table's column headings */
+table th {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+/* styles for the table data cells */
+table td {
+  background-color: royalblue;
+  color: whitesmoke;
+}
+
+/* styles for unordered lists */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* styles for table links that lead to the model history */
+li.historylink {
+  text-transform: uppercase;
+  border-bottom: 2px solid #00ffff;
+  display: inline-block;
+  margin-right: 1rem;
+}
+</style>
+{% endblock css %}
+
+{% block bodyclass %}{{ block.super }} index{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">{{ site_header|default:_('Administration') }}</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        <{% url 'admin:app_list' app_label as app_list_url %}{% url 'admin:index' as index_url %}
+        {% if user.is_staff %}
+            <div class="module">
+                <h2>{{ site_title|default:_('Django site admin') }}</h2>
+                {% if not is_popup %}
+                    <div class="breadcrumbs">
+                        <a href="{{ index_url }}">{{ site_header|default:_('Administration') }}</a>
+                        &rsaquo; {{ app_list_url|title }}
+                    </div>
+                {% endif %}
+                <table>
+                    {% for app in app_list %}
+                        <tr>
+                            <th>{{ app.name|capfirst }}</th>
+                            {% if app.models %}
+                                <td>
+                                    <ul>
+                                        {% for model in app.models %}
+                                            <li class="{% if model.admin_log %}historylink{% endif %}">
+                                                <a href="{{ model.url }}">{{ model.name|capfirst }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            {% else %}
+                                <td>{{ _('No models in this app.') }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% else %}
+            {% include "admin/invalid_permission.html" %}
+        {% endif %}
+    </div>
+{% endblock %}

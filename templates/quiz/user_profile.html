@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Профиль{% endblock title %}</title>
+</head>
+{% block content %}
+
+<div class="header1">
+        <h1>Профиль</h1>
+    </div>
+
+    <div class="info">
+        <h2>{{ quizprofile.user }}</h2>
+        <p><strong>Электронная почта:</strong> {{ quizprofile.email }}</p>
+        <p><strong>Общий счёт:</strong> {{ total_score }}</p>
+    </div>
+
+    <div class="attempts">
+        <h2>Пройденные вопросы:</h2>
+        <ul>
+            {% for attempt in quizprofile.attempts.all %}
+            <li class="attempt">
+                <h3>{{ attempt.question.question_text }}</h3>
+                <p><strong>Выбранный ответ:</strong> {{ attempt.selected_choice.choice_text }}</p>
+                <p><strong>Правильно:</strong>{% if attempt.is_correct %}<p>Правильно</p>{% else %}<p>Неправильно</p>{% endif %}</p>
+                <p><strong>Баллов получено:</strong> {{ attempt.marks_obtained }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock content %}

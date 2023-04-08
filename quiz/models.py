@@ -12,7 +12,7 @@ class Question(TimeStampedModel):
     is_published = models.BooleanField(_('Has been published?'), default=False, null=False) # поле возможности публикации
     maximum_marks = models.DecimalField(_('Maximum Marks'), default=4, decimal_places=2, max_digits=6) # максимальное количество оценок
     tour = models.PositiveSmallIntegerField(_('Tour'), default=1) # номер тура
-    image = models.ImageField(_('Image'), default=None, upload_to='questions/') # изображение к вопросу
+    # image = models.ImageField(_('Image'), default=None, upload_to='questions/') # изображение к вопросу
 
     def __str__(self):
         return self.html

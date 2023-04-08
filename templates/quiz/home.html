@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 {% block title %} СувИОС | Домашняя страница {% endblock title %}
 {% block content %}
-    <body class="none">
+<body class="none" xmlns="http://www.w3.org/1999/html">
+<canvas id="stars"></canvas>
       <div class="home-back">
+
+
           <ul class="container center">
           <li><h1 class="name">СувИОС</h1></li>
           <div class="info-text">
             <li><p>Проверьте свои знания.</p></li>
               <li><p>Мы создаем расносторонние задания.</p></li>
+
           {% if not request.user.is_active %}
 
           <li><p>Зарегистрируетесь, если у вас нет еще аккаунта.</p></li>
@@ -19,10 +23,30 @@
             <li><a href="{% url 'quiz:play' %}" class="btn1">Играть</a></li>
               <li><a href="{% url 'quiz:leaderboard' %}" class="btn1">Таблица Лидеров</a></li>
                <li><a href="{% url 'quiz:subjects' %}" class="btn1">Обьекты</a></li>
+                <li><a href="{% url 'quiz:profile' %}" class="btn1">Профиль</a></li>
+
           {% endif %}
           </div>
         </ul>
       </div>
+{% block js %}
+      <script src="http://atuin.ru/js/art/stars.js" type="text/javascript"></script>
+    <script>
+      var canvas = document.getElementById('stars');
+      var options = {
+        on: true,
+        density: 100000,
+        newStars: 500000000,
+        starSize: 10,
+        maxOpacity: 0.1,
+        minOpacity: 0,
+        starColor: '#000000',
+        lineColor: '#000000',
+        twinkleTime: 1
+      };
+      starsky(canvas, options);
+    </script>
+{% endblock js %}
     </body>
 
 {% endblock content %}

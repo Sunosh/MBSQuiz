@@ -4,11 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.views import View
+from django.db.models import Sum
 from django.utils.decorators import method_decorator
 from .models import QuizProfile, Question, AttemptedQuestion, Subjects
 from .forms import UserLoginForm, RegistrationForm
 import random
-
 
 class PlayView(View):
     template_name = 'quiz/play.html'
@@ -26,6 +26,7 @@ class PlayView(View):
     def get(self, request, *args, **kwargs):
         quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
         question = self.get_tour_question(quiz_profile)
+        print(question)
 
         if question is not None:
             attempted_question = AttemptedQuestion.objects.create(
@@ -45,22 +46,28 @@ class PlayView(View):
         quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
         question_pk = request.POST.get('question_pk')
         choice_pk = request.POST.get('choice_pk')
-        attempted_question = quiz_profile.attempts.select_related('question').get(question__pk=question_pk)
-
-        try:
-            selected_choice = attempted_question.question.choices.get(pk=choice_pk)
-        except ObjectDoesNotExist:
-            raise Http404
-
-        quiz_profile.evaluate_attempt(attempted_question, selected_choice)
-
         play_again = request.POST.get('play_again')
+        print(question_pk, choice_pk, play_again)
 
         if play_again:
-            quiz_profile.attempts.all().delete()
-            return redirect('quiz:play_view')
+            AttemptedQuestion.objects.filter(quiz_profile=quiz_profile).all().delete()
+            return redirect('http://127.0.0.1:8000/play/')
         else:
+            attempted_question = quiz_profile.attempts.select_related('question').get(question__pk=question_pk)
+            selected_choice = None
+            try:
+                selected_choice = attempted_question.question.choices.get(pk=choice_pk)
+            except ObjectDoesNotExist:
+                pass
+
+            quiz_profile.evaluate_attempt(attempted_question, selected_choice)
             return redirect(attempted_question)
+
+
+
+
+
+
 
 
 # первейшая(которая открывается при первом запуске) страница
@@ -86,46 +93,7 @@ def leaderboard(request):
     }
     return render(request, 'quiz/leaderboard.html', context=context)
 
-# профиль пользователя, его вопросов и вариантов ответов на них
-@login_required()
-def play(request):
-    quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
-    # subjects_with_grade_1_to_11 = Subjects.objects.filter(grade__gte=1, grade__lte=11).order_by('grade')
-    #
-    # subject_tuple = ()
-    #
-    # for subjects in list(subjects_with_grade_1_to_11.values_list('grade', flat=True)):
-    #     subject_tuple.append(subjects)
-    # list(set(subject_tuple))
 
-
-    if request.method == 'POST':
-        question_pk = request.POST.get('question_pk')
-
-        attempted_question = quiz_profile.attempts.select_related('question').get(question__pk=question_pk)
-
-        choice_pk = request.POST.get('choice_pk')
-
-        if choice_pk is not None:
-            try:
-                selected_choice = attempted_question.question.choices.get(pk=choice_pk)
-            except ObjectDoesNotExist:
-                raise Http404
-
-            quiz_profile.evaluate_attempt(attempted_question, selected_choice)
-
-        return redirect(attempted_question)
-
-    else:
-        question = quiz_profile.get_tour_question()
-        if question is not None:
-            quiz_profile.create_attempt(question)
-
-        context = {
-            'question': question,
-        }
-
-        return render(request, 'quiz/play.html', context=context)
 
 # промежуточная страница между вопросами
 @login_required()
@@ -136,6 +104,14 @@ def submission_result(request, attempted_question_pk):
     }
 
     return render(request, 'quiz/submission_result.html', context=context)
+
+@login_required()
+def profile(request):
+    quizprofile = QuizProfile.objects.get(user=request.user)
+    total_score = quizprofile.total_score
+    context = {"quizprofile": quizprofile, "total_score": total_score}
+    return render(request, 'quiz/user_profile.html', context=context)
+
 
 # вход в учётную запись
 def login_view(request):
