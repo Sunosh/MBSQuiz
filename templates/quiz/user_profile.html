@@ -14,19 +14,40 @@
         <p><strong>Электронная почта:</strong> {{ quizprofile.email }}</p>
         <p><strong>Общий счёт:</strong> {{ total_score }}</p>
     </div>
-
+    <button id="toggleBtn">Нажмите для того, чтобы просмотреть ответы на вопросы</button>
+    <div id="myDiv" style="display:none">
     <div class="attempts">
         <h2>Пройденные вопросы:</h2>
         <ul>
             {% for attempt in quizprofile.attempts.all %}
             <li class="attempt">
-                <h3>{{ attempt.question.question_text }}</h3>
-                <p><strong>Выбранный ответ:</strong> {{ attempt.selected_choice.choice_text }}</p>
+                <h3>{{ attempt.question.html }}</h3>
+                {% if attempt.selected_choise is not None %}
+                    <p><strong>Выбранный ответ:</strong> {{ attempt.selected_choice.choice_text }}</p>
+                {% else %}
+                    <p><strong>Вы не ответили на данный вопрос</strong></p>
+                {% endif %}
                 <p><strong>Правильно:</strong>{% if attempt.is_correct %}<p>Правильно</p>{% else %}<p>Неправильно</p>{% endif %}</p>
                 <p><strong>Баллов получено:</strong> {{ attempt.marks_obtained }}</p>
             </li>
             {% endfor %}
         </ul>
     </div>
-
+    </div>
 {% endblock content %}
+{% block js %}
+<script type="text/javascript">
+    const toggleBtn = document.getElementById('toggleBtn');
+    const myDiv = document.getElementById('myDiv');
+    console.log(toggleBtn)
+    console.log(myDiv)
+
+    toggleBtn.addEventListener('click', function() {
+        if (myDiv.style.display === "none") {
+            myDiv.style.display = "block";
+        } else {
+            myDiv.style.display = "none";
+        }
+    });
+</script>
+{% endblock js %}

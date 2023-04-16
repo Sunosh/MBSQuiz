@@ -1,28 +1,7 @@
 {% extends 'base.html' %}
-{% block js %}
-<script>
-     let timerShow = document.getElementById("timer"); // Берём блок для показа времени
-
-    timeMinut = 60
-
-
-    timer = setInterval(function(){
-     seconds = timeMinut%60
-         minutes = timeMinut/60%60
-         hour = timeMinut/60/60%60
- if (timeMinut <= 0) {
-  clearInterval(timer);
-  document.getElementById("submit_answer").submit();
- } else{
-  let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
-  timerShow.innerHTML = strTimer;
- }
- --timeMinut;
-    }, 1000)
-
-</script>
-{% endblock js %}
-
+<head>
+  <title>{% block title %}{{subject.title}}{% endblock title %}</title>
+</head>
 {% block content %}
 {% if question is None %}
 <div class="container center">
@@ -45,26 +24,45 @@
 {% else %}
 
 <div margin-left="20%">
-  <div class="info-text">
-    <h3>{{ question.html|safe }}</h3>
-    <form class="form" action="" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="question_pk" value="{{ question.pk }}">
-        {% for choice in question.choices.all %}
-          <div>
-            <input type="radio" name="choice_pk" id="choice-{{ forloop.counter }}" value="{{ choice.pk }}">
-            <label for="choice-{{ forloop.counter }}">
-              {{ choice.html|safe }}
-            </label>
-          </div>
-
-        {% endfor %}
-        <input class="btn1" type="submit" value="Ответить">
+  <h1>{{ subject.title }}</h1>
+  {% for question in questions %}
+    <p>{{ question.text }}</p>
+  {% with subject_id=subject.id %}
+    <form action="" method="post">
+      <input type="hidden" name="question_pk" value="{{ question.pk }}">
+      {% for choice in question.choices.all %}
+        <input type="radio" name="choice_pk" value="{{ choice.pk }}" id="{{ choice.pk }}" required>
+        <label for="{{ choice.pk }}">{{ choice.text }}</label>
+        <br>
+      {% endfor %}
+      <button type="submit">Ответить</button>
     </form>
+  {% endwith %}
+  {% endfor %}
       <div class="timer "id="timer">
       </div>
+
+    <script type="text/javascript">
+    let timerShow = document.getElementById("timer"); // Берём блок для показа времени
+
+    timeMinut = 60
+
+
+    timer = setInterval(function(){
+      seconds = timeMinut%60
+      minutes = timeMinut/60%60
+      hour = timeMinut/60/60%60
+      if (timeMinut <= 0) {
+        clearInterval(timer);
+        document.getElementById("submit_answer").submit();
+      } else{
+        let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
+        timerShow.innerHTML = strTimer;
+      }
+      --timeMinut;
+       }, 1000)
+</script>
   </div>
-</div>
 {% endif %}
 
 {% endblock content %}

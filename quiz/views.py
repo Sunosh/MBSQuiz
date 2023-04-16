@@ -4,69 +4,76 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.views import View
+from django.urls import reverse
+from django.views.generic import ListView
 from django.db.models import Sum
 from django.utils.decorators import method_decorator
 from .models import QuizProfile, Question, AttemptedQuestion, Subjects
 from .forms import UserLoginForm, RegistrationForm
 import random
 
-class PlayView(View):
+
+class Play(View):
     template_name = 'quiz/play.html'
 
     def get_tour_question(self, quiz_profile):
-        used_questions_pk = AttemptedQuestion.objects.filter(quiz_profile=quiz_profile).values_list('question__pk',
-                                                                                                    flat=True)
+        used_questions_pk = AttemptedQuestion.objects.filter(quiz_profile=quiz_profile).values_list(
+            'question__pk', flat=True)
+
         remaining_questions_tour1 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=1)
+
         if remaining_questions_tour1.exists():
             return random.choice(remaining_questions_tour1)
-        remaining_questions_tour2 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=2)
-        if remaining_questions_tour2.exists():
-            return random.choice(remaining_questions_tour2)
+        else:
+            remaining_questions_tour2 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=2)
+            if remaining_questions_tour2.exists():
+                return random.choice(remaining_questions_tour2)
+            else:
+                return None
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, subject_id, *args, **kwargs):
         quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
+        subject = get_object_or_404(Subjects, id=subject_id)
+        subject_list = Subjects.objects.filter(id=subject_id)
+
         question = self.get_tour_question(quiz_profile)
-        print(question)
 
         if question is not None:
-            attempted_question = AttemptedQuestion.objects.create(
-                quiz_profile=quiz_profile,
-                question=question,
-            )
-        else:
-            attempted_question = None
+            quiz_profile.create_attempt(question, subject_id)
+
+
 
         context = {
-            'question': question,
+            'subject': subject,
+            'questions': question,
+            'subject_list': subject_list,
         }
 
         return render(request, self.template_name, context=context)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, subject_id, *args, **kwargs):
         quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
+
+        subject_id = get_object_or_404(Subjects, id=subject_id)
         question_pk = request.POST.get('question_pk')
         choice_pk = request.POST.get('choice_pk')
         play_again = request.POST.get('play_again')
-        print(question_pk, choice_pk, play_again)
 
         if play_again:
-            AttemptedQuestion.objects.filter(quiz_profile=quiz_profile).all().delete()
-            return redirect('http://127.0.0.1:8000/play/')
+            AttemptedQuestion.objects.filter(quiz_profile=quiz_profile, subjects=int(subject_id)).delete()
+            return redirect(reverse('play'))
         else:
-            attempted_question = quiz_profile.attempts.select_related('question').get(question__pk=question_pk)
-            selected_choice = None
+            if not (question_pk and choice_pk):
+                return redirect(reverse('play'))
+
             try:
-                selected_choice = attempted_question.question.choices.get(pk=choice_pk)
-            except ObjectDoesNotExist:
-                pass
+                attempted_question = quiz_profile.attempts.select_related('question').get(question__pk=int(question_pk))
+                selected_choice = attempted_question.question.choices.get(pk=int(choice_pk))
+            except (ObjectDoesNotExist, ValueError):
+                return redirect(reverse('play'))
 
             quiz_profile.evaluate_attempt(attempted_question, selected_choice)
             return redirect(attempted_question)
-
-
-
-
-
 
 
 
@@ -127,17 +134,19 @@ def login_view(request):
 
 # создание нового пользователя
 def register(request):
-    title = "Create account"
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            profile = QuizProfile(user=user, grade=form.cleaned_data['grade'])
+            profile.save()
             return redirect('/login')
     else:
         form = RegistrationForm()
 
-    context = {'form': form, 'title': title}
-    return render(request, 'quiz/registration.html', context=context)
+    context = {'form': form}
+
+    return render(request, 'registration.html', context=context)
 
 # выход из учётной записи
 def logout_view(request):
@@ -154,7 +163,9 @@ def error_500(request):
     data = {}
     return render(request, 'quiz/error_500.html', data)
 
-def subjects_view(request):
-    subjects_with_grade_1_to_11 = Subjects.objects.filter(grade__gte=1, grade__lte=11).order_by('grade')
-    context = {'subjects': subjects_with_grade_1_to_11}
+def subjects(request):
+    subject_order_grade = Subjects.objects.filter(grade__range=(1, 11)).order_by('grade')
+    context = {
+        'subjects': subject_order_grade,
+    }
     return render(request, 'quiz/subjects.html', context=context)

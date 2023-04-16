@@ -1,4 +1,5 @@
 from django import forms
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, get_user_model
 from django.utils.translation import gettext as _
@@ -64,20 +65,30 @@ class UserLoginForm(forms.Form):
 
 
 class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True, label="Почта")
+    email = forms.EmailField(required=True, label="Email")
+    grade = forms.IntegerField(
+        required=True,
+        label="Класс",
+        validators=[
+            MinValueValidator(1, "Grade should be between 1 and 11."),
+            MaxValueValidator(11, "Grade should be between 1 and 11.")
+        ]
+    )
 
     class Meta:
         model = User
         fields = [
             'username',
             'email',
+            'grade',
             'password1',
             'password2',
         ]
 
     def save(self, commit=True):
-        user = super(RegistrationForm, self).save(commit=False)
+        user = super().save(commit=False)
         user.email = self.cleaned_data['email']
+        user.grade = self.cleaned_data['grade']
 
         if commit:
             user.save()

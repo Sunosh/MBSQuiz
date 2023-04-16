@@ -1,4 +1,3 @@
-import random
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
@@ -15,7 +14,7 @@ class Question(TimeStampedModel):
     # image = models.ImageField(_('Image'), default=None, upload_to='questions/') # изображение к вопросу
 
     def __str__(self):
-        return self.html
+        return f'Вопрос- {self.html}'
 
     class Meta:
         verbose_name = _('Вопрос')
@@ -31,7 +30,7 @@ class Choice(TimeStampedModel):
     html = models.TextField(_('Choice Text')) # ввод текста ответа
 
     def __str__(self):
-        return self.html
+        return f' Выбор ответа- {self.html}'
 
     class Meta:
         verbose_name = _('Вариант ответа')
@@ -44,7 +43,7 @@ class QuizProfile(TimeStampedModel):
     total_score = models.DecimalField(_('Общий счет'), default=0, decimal_places=2, max_digits=610) # общий счет пользователя
 
     def __str__(self):
-        return f'<QuizProfile: user={self.user}>'
+        return f'<Профиль: Логин={self.user}>'
 
 
     class Meta:
@@ -52,8 +51,8 @@ class QuizProfile(TimeStampedModel):
         verbose_name_plural = _('Профили')
 
     # получение нового варианта ответа
-    def create_attempt(self, question):
-        attempted_question = AttemptedQuestion(question=question, quiz_profile=self)
+    def create_attempt(self, question, subject_id):
+        attempted_question = AttemptedQuestion(question=question, subjects=subject_id, quiz_profile=self)
         attempted_question.save()
 
     # сравнение правильного ответа и варианта ответа
@@ -80,26 +79,13 @@ class QuizProfile(TimeStampedModel):
         verbose_name = _('Профиль')
         verbose_name_plural = _('Профили')
 
-
-class AttemptedQuestion(TimeStampedModel):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    quiz_profile = models.ForeignKey(QuizProfile, on_delete=models.CASCADE, related_name='attempts')
-    selected_choice = models.ForeignKey(Choice, on_delete=models.CASCADE, null=True)
-    is_correct = models.BooleanField(_('Was this attempt correct?'), default=False, null=False)
-    marks_obtained = models.DecimalField(_('Marks Obtained'), default=0, decimal_places=2, max_digits=6)
-
-    def get_absolute_url(self):
-        return f'/submission-result/{self.pk}/'
-
-
-
 # предмет, объединяющий вопросы
 class Subjects(models.Model):
     title = models.CharField(_('Название предмета'), max_length=100)
     questions = models.ManyToManyField(Question, related_name='subjects')
     grade = models.PositiveSmallIntegerField(_('Номер класса'), default=5)
     def __str__(self):
-        return self.title
+        return f'Предмет- {self.title}'
 
     def get_grade(self):
         return self.grade
@@ -107,6 +93,18 @@ class Subjects(models.Model):
     class Meta:
         verbose_name = _('Предмет')
         verbose_name_plural = _('Предметы')
+
+class AttemptedQuestion(TimeStampedModel):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    quiz_profile = models.ForeignKey(QuizProfile, on_delete=models.CASCADE, related_name='attempts')
+    subjects = models.ForeignKey(Subjects, on_delete=models.CASCADE)
+    selected_choice = models.ForeignKey(Choice, on_delete=models.CASCADE,blank=True, null=True)
+    is_correct = models.BooleanField(_('Was this attempt correct?'), default=False, null=False)
+    marks_obtained = models.DecimalField(_('Marks Obtained'), default=0, decimal_places=2, max_digits=6)
+
+
+    def get_absolute_url(self):
+        return f'/submission-result/{self.pk}/'
 
 
 
