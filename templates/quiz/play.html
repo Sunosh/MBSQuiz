@@ -25,7 +25,7 @@
 
 <div margin-left="20%">
   <h1>{{ subject.title }}</h1>
-  {% for question in questions %}
+  {% for question in question_X %}
     <p>{{ question.text }}</p>
   {% with subject_id=subject.id %}
     <form action="" method="post">

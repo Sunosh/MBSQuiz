@@ -2,12 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
 from django.views import View
 from django.urls import reverse
-from django.views.generic import ListView
-from django.db.models import Sum
-from django.utils.decorators import method_decorator
 from .models import QuizProfile, Question, AttemptedQuestion, Subjects
 from .forms import UserLoginForm, RegistrationForm
 import random
@@ -16,16 +12,17 @@ import random
 class Play(View):
     template_name = 'quiz/play.html'
 
-    def get_tour_question(self, quiz_profile):
-        used_questions_pk = AttemptedQuestion.objects.filter(quiz_profile=quiz_profile).values_list(
+    def get_tour_question(self, quiz_profile, subject):
+        used_questions_pk = AttemptedQuestion.objects.filter(quiz_profile=quiz_profile, subjects=subject).values_list(
             'question__pk', flat=True)
-
+        print(f'used-  {used_questions_pk}')
         remaining_questions_tour1 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=1)
-
+        print(f'remaining_tour1-  {remaining_questions_tour1}')
         if remaining_questions_tour1.exists():
             return random.choice(remaining_questions_tour1)
         else:
             remaining_questions_tour2 = Question.objects.exclude(pk__in=used_questions_pk).filter(tour=2)
+            print(f'remaining_tour2-  {remaining_questions_tour2}')
             if remaining_questions_tour2.exists():
                 return random.choice(remaining_questions_tour2)
             else:
@@ -33,44 +30,37 @@ class Play(View):
 
     def get(self, request, subject_id, *args, **kwargs):
         quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
-        subject = get_object_or_404(Subjects, id=subject_id)
-        subject_list = Subjects.objects.filter(id=subject_id)
-
-        question = self.get_tour_question(quiz_profile)
-
-        if question is not None:
-            quiz_profile.create_attempt(question, subject_id)
-
-
+        subject = Subjects.objects.get(id=subject_id)
+        question_X = self.get_tour_question(quiz_profile, subject)
+        print(question_X)
+        if question_X is not None:
+            quiz_profile.create_attempt(question_X, subject)
 
         context = {
             'subject': subject,
-            'questions': question,
-            'subject_list': subject_list,
+            'question_X': question_X,
         }
 
         return render(request, self.template_name, context=context)
 
     def post(self, request, subject_id, *args, **kwargs):
         quiz_profile, created = QuizProfile.objects.get_or_create(user=request.user)
-
-        subject_id = get_object_or_404(Subjects, id=subject_id)
         question_pk = request.POST.get('question_pk')
         choice_pk = request.POST.get('choice_pk')
         play_again = request.POST.get('play_again')
 
         if play_again:
-            AttemptedQuestion.objects.filter(quiz_profile=quiz_profile, subjects=int(subject_id)).delete()
-            return redirect(reverse('play'))
+            AttemptedQuestion.objects.filter(quiz_profile=quiz_profile, id=subject_id).delete()
+            return redirect(reverse('quiz:play', args=[subject_id]))
         else:
             if not (question_pk and choice_pk):
-                return redirect(reverse('play'))
+                return redirect(reverse('quiz:play', args=[subject_id]))
 
             try:
                 attempted_question = quiz_profile.attempts.select_related('question').get(question__pk=int(question_pk))
                 selected_choice = attempted_question.question.choices.get(pk=int(choice_pk))
             except (ObjectDoesNotExist, ValueError):
-                return redirect(reverse('play'))
+                return redirect(reverse('quiz:play', args=[subject_id]))
 
             quiz_profile.evaluate_attempt(attempted_question, selected_choice)
             return redirect(attempted_question)
@@ -146,7 +136,7 @@ def register(request):
 
     context = {'form': form}
 
-    return render(request, 'registration.html', context=context)
+    return render(request, 'quiz/registration.html', context=context)
 
 # выход из учётной записи
 def logout_view(request):

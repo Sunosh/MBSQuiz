@@ -51,8 +51,8 @@ class QuizProfile(TimeStampedModel):
         verbose_name_plural = _('Профили')
 
     # получение нового варианта ответа
-    def create_attempt(self, question, subject_id):
-        attempted_question = AttemptedQuestion(question=question, subjects=subject_id, quiz_profile=self)
+    def create_attempt(self, question, subject):
+        attempted_question = AttemptedQuestion(question=question, subjects=subject, quiz_profile=self)
         attempted_question.save()
 
     # сравнение правильного ответа и варианта ответа
@@ -97,8 +97,8 @@ class Subjects(models.Model):
 class AttemptedQuestion(TimeStampedModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     quiz_profile = models.ForeignKey(QuizProfile, on_delete=models.CASCADE, related_name='attempts')
-    subjects = models.ForeignKey(Subjects, on_delete=models.CASCADE)
-    selected_choice = models.ForeignKey(Choice, on_delete=models.CASCADE,blank=True, null=True)
+    subjects = models.ForeignKey(Subjects, on_delete=models.CASCADE, default=False)
+    selected_choice = models.ForeignKey(Choice, on_delete=models.CASCADE, blank=True, null=True)
     is_correct = models.BooleanField(_('Was this attempt correct?'), default=False, null=False)
     marks_obtained = models.DecimalField(_('Marks Obtained'), default=0, decimal_places=2, max_digits=6)
 
