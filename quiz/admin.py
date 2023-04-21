@@ -3,7 +3,7 @@ from django.forms.models import BaseInlineFormSet
 from django.forms.utils import flatatt
 from django.forms import widgets
 from django.utils.html import format_html
-from .models import Question, Choice, Subjects, QuizProfile, AttemptedQuestion
+from .models import Question, QuestionTour3, Choice, Subjects, QuizProfile, AttemptedQuestion
 from .forms import QuestionForm, ChoiceForm
 
 
@@ -66,8 +66,24 @@ class QuestionAdmin(admin.ModelAdmin):
             return False
         return True
 
+class QuestionTour3Admin(admin.ModelAdmin):
+    list_display = ('html', 'is_published', 'maximum_marks', 'right_anwser', 'image')
+    list_filter = ('is_published',)
+    search_fields = ('html', 'right_anwser')
+    fieldsets = (
+        (None, {
+            'fields': ('html', 'is_published')
+        }),
+        ('Answer details', {
+            'fields': ('maximum_marks', 'right_anwser', 'image')
+        })
+    )
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 admin.site.register(Question, QuestionAdmin)
+admin.site.register(QuestionTour3, QuestionTour3Admin)
 admin.site.register(Subjects)
 admin.site.register(QuizProfile)
 admin.site.register(AttemptedQuestion)

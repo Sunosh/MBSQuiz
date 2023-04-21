@@ -3,7 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, get_user_model
 from django.utils.translation import gettext as _
-from .models import Question, Choice
+from .models import Question, Choice, Subjects
 
 
 class QuestionForm(forms.ModelForm):
@@ -94,3 +94,10 @@ class RegistrationForm(UserCreationForm):
             user.save()
 
         return user
+
+class QuizRequestForm(forms.Form):
+    subject = forms.ModelChoiceField(
+        queryset=Subjects.objects.filter(grade__range=(1, 11)).order_by('grade'),
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        empty_label=None
+    )

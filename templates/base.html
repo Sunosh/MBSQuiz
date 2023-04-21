@@ -491,7 +491,7 @@ label.radio {
               <li class="btn"><a href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
               {% else %}
               <li class="btn" style="margin-left: 480px;"><a href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
-              <li class="btn"><a href="{% url 'quiz:subjects' %}"> Играть </a></li>
+              <li class="btn"><a href="{% url 'quiz:leaderboard' %}"> Играть </a></li>
               <li class="btn"><a href="{% url 'quiz:logout' %}" > Выйти </a></li>
 
               {% endif %}

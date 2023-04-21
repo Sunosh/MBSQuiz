@@ -6,33 +6,42 @@
 {% if question is None %}
 <div class="container center">
   <div class="info-text">
-    <h1> Вы ответили на все вопросы 1 и 2 тура. </h1>
-    {% with subject_id=subject.id %}
-    <a href="{% url 'quiz:playtour3' subject_id %}" class="btn1">Перейти к 3 туру</a>
-    {% endwith %}
+    <h1> Вы ответили на все вопросы. </h1>
+    <a href="{% url 'quiz:leaderboard' %}" class="btn1">Таблица Лидеров</a>
+
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="play_again" value="True">
+      <p>Хотите еще раз?</p>
+      <button type="submit" class="btn1">Играть заново</button>
+    </form>
+
+
   </div>
 </div>
 
 {% else %}
 
+
 <div margin-left="20%">
-  <h1>{{ subject.title }}, Тур - {{question.tour}}</h1>
+  <h1>{{ subject.title }}, Тур - 3</h1>
+  {% if question.image is not None %}
+    <img src="{{ question.image.url }}" alt="Изображение вопроса" width="100%">
+  {% endif %}
     <p>{{ question.html }}</p>
   {% with subject_id=subject.id %}
     <form action="" method="post">
       {% csrf_token %}
       <input type="hidden" name="question_pk" value="{{ question.pk }}">
-      {% for choice in question.choices.all %}
-        <input type="radio" name="choice_pk" value="{{ choice.pk }}" id="{{ choice.pk }}" required>
-        <label for="{{ choice.pk }}">{{ choice.html }}</label>
-        <br>
-      {% endfor %}
+      <input type="text" name="text_answer" id="text_answer" required>
       <button type="submit">Ответить</button>
     </form>
   {% endwith %}
 
-      <div class="timer "id="timer">
-      </div>
+  <div class="timer" id="timer">
+  </div>
+</div>
 
     <script type="text/javascript">
     let timerShow = document.getElementById("timer"); // Берём блок для показа времени
