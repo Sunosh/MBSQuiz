@@ -485,7 +485,7 @@ label.radio {
     <div class="navbar">
     <header>
       <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
-          <a href="{% url 'quiz:home' %}" class="brand">Московское Суворовское Военное Училище</a><a color="black">==)</a>
+          <a href="{% url 'quiz:home' %}" class="brand">Московское Суворовское Военное Училище</a>
           <ul>
               {% if not request.user.is_active %}
               <li class="btn" style="margin-left: 480px;"><a href="{% url 'quiz:login' %}" > Вход</a></li>
@@ -508,7 +508,7 @@ label.radio {
 
 
         {% endblock content %}
-        <div class="row justify-content-md-center">
+        <div class="row">
             <div class="col">
                 <ul class="reckvis">
                     <li>@ Москва 2023</li>
@@ -518,7 +518,7 @@ label.radio {
                     <li>sherihay@m-svu.ru</li>
                 </ul>
             </div>
-        <div class="row">
+        </div>
     </div>    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
