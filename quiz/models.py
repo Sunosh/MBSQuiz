@@ -114,9 +114,6 @@ class Subjects(models.Model):
         verbose_name = _('Предмет')
         verbose_name_plural = _('Предметы')
 
-
-
-
 class AttemptedQuestion(TimeStampedModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True, null=True)
     question_tour3 = models.ForeignKey(QuestionTour3, on_delete=models.CASCADE)

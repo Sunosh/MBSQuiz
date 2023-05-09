@@ -155,7 +155,7 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            profile = QuizProfile(user=user, grade=form.cleaned_data['grade'])
+            profile = QuizProfile(user=user) #, grade=form.cleaned_data['grade'])
             profile.save()
             return redirect('/login')
     else:
