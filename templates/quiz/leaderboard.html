@@ -5,9 +5,10 @@
   <div class="lead">
     <h1><span><i aria-hidden="true"></i> Рейтинг игроков <i aria-hidden="true"></i></span></h1>
     <div class="row">
-                <div class="col">Позиция</div>
-                <div class="col">Имя</div>
-                <div class="col">Счет</div>
+                <div class="col-4">Позиция</div>
+                <div class="col-4">Имя</div>
+                <div class="col-4">Счет</div>
+        </div>
             {% for quiz_profile in top_quiz_profiles %}
 
         <div class="row">
@@ -19,7 +20,7 @@
 
         </div>
             {% endfor %}
-    </div>
+
   </div>
 {% else %}
   <div class="lead">
