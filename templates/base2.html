@@ -484,16 +484,16 @@ label.radio {
 <body>
     <header class="navbar navbar-expand-xl navbar-dark bg-dark">
 
-          <a href="{% url 'quiz:home' %}" class="brand">Московское Суворовское Военное Училище</a>
+          <a href="{% url 'quiz:home' %}" class="navbar-brand">Московское Суворовское Военное Училище</a>
           <ul>
               {% if not request.user.is_active %}
-              <li class="btn" style="margin-left: 480px;"><a href="{% url 'quiz:login' %}" > Вход</a></li>
-              <li class="btn"><a href="{% url 'quiz:register' %}" > Регистрация</a></li>
-              <li class="btn"><a href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
+              <li class="nav-item btn" style="margin-left: 480px;"><a class="nav-link" href="{% url 'quiz:login' %}" > Вход</a></li>
+              <li class="nav-item btn"><a class="nav-link" href="{% url 'quiz:register' %}" > Регистрация</a></li>
+              <li class="nav-item btn"><a class="nav-link" href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
               {% else %}
-              <li class="btn" style="margin-left: 480px;"><a href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
-              <li class="btn"><a href="{% url 'quiz:subjects' %}"> Играть </a></li>
-              <li class="btn"><a href="{% url 'quiz:logout' %}" > Выйти </a></li>
+              <li class="nav-item btn" style="margin-left: 480px;"><a class="nav-link" href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
+              <li class="nav-item btn"><a class="nav-link" href="{% url 'quiz:subjects' %}"> Играть </a></li>
+              <li class="nav-item btn"><a class="nav-link" href="{% url 'quiz:logout' %}" > Выйти </a></li>
 
               {% endif %}
         
