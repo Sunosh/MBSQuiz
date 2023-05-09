@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %} {% endblock title %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {% block css %}
     <style>
@@ -204,7 +203,7 @@
         margin-left: 50px;
     }
 
-
+/*
     .container {
         display: flex;
         align: center;
@@ -212,7 +211,7 @@
         text-decoration: none;
         list-style: none;
         color: black;
-    }
+    }*/
     .container1 {
         display: flex;
         align: center;
@@ -234,7 +233,7 @@
         align: center;
     }
 
-
+/*
     .container .center {
         margin-top: auto;
         display: flex;
@@ -243,7 +242,7 @@
         text-decoration: none;
         list-style: none;
         color: black;
-    }
+    }*/
 
     div.navbar {
         height: 90px;
@@ -482,9 +481,8 @@ label.radio {
 
 </head>
 <body>
-    <div class="navbar">
-    <header>
-      <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+    <header class="navbar navbar-expand-xl navbar-dark bg-dark">
+
           <a href="{% url 'quiz:home' %}" class="brand">Московское Суворовское Военное Училище</a>
           <ul>
               {% if not request.user.is_active %}
@@ -500,9 +498,8 @@ label.radio {
         
 
           </ul>
-      </nav>
+
     </header>
-  </div>
     <div class="container">
     {% block content %}
 
