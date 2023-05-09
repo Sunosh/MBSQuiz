@@ -3,40 +3,38 @@
 {% block title %} СувИОС | Домашняя страница {% endblock %}
 
 {% block content %}
-<body class="none" xmlns="http://www.w3.org/1999/html">
-<div class="home-back" id="particles-js">
+<div class="" id="">
      
 
 
-          <ul class="container center">
-          <li><h1 class="name">СувИОС</h1></li>
+
+          <h1 class="name">СувИОС</h1>
           <div class="info-text">
-            <li><p>Проверьте свои знания.</p></li>
-              <li><p>Готовим лидеров для сильной армии и великой страны.</p></li>
+            <p>Проверьте свои знания.</p>
+              <p>Готовим лидеров для сильной армии и великой страны.</p>
 
           {% if not request.user.is_active %}
 
-          <li><p>Зарегистрируетесь, если у вас нет еще аккаунта.</p></li>
-          <li><p><strong> Начните здесь:</strong></p></li>
-          <li><a href="{% url 'quiz:register' %}" class="btn1"> Зарегистрируетесь</a></li>
-          <li></li>
+          <p>Зарегистрируетесь, если у вас нет еще аккаунта.</p>
+          <p><strong> Начните здесь:</strong></p>
+          <a href="{% url 'quiz:register' %}" class="btn1"> Зарегистрируетесь</a>
+
 
           {% else %}
-          <li><h5 color="LightSeaGreen">Добро пожаловать, {{ request.user.username }} </h5></li>
-            <li><a href="{% url 'quiz:subjects' %}" class="btn1">Играть</a></li>
-              <li><a href="{% url 'quiz:leaderboard' %}" class="btn1">Таблица Лидеров</a></li>
+          <h5 color="LightSeaGreen">Добро пожаловать, {{ request.user.username }} </h5>
+              <a href="{% url 'quiz:subjects' %}" class="btn1">Играть</a>
+              <a href="{% url 'quiz:leaderboard' %}" class="btn1">Таблица Лидеров</a>
               {% with user_id=request.user.id %}
-                <li><a href="{% url 'quiz:profile' %}" class="btn1">Профиль</a></li>
+                <a href="{% url 'quiz:profile' %}" class="btn1">Профиль</a>
               {% endwith %}
           {% endif %}
           </div>
-        </ul>
+
       </div>
       
 {% block js %}
 
 {% endblock %}
-</body>
 
 {% endblock %}
 
