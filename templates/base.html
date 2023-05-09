@@ -482,7 +482,7 @@ label.radio {
 </head>
 <body>
     <header class="navbar navbar-expand-xl navbar-dark bg-dark">
-          <a href="{% url 'quiz:home' %}" class="navbar-brand"><img src="{% static 'backgrounds/gerb.png' %}">Московское Суворовское Военное Училище</a>
+          <a href="{% url 'quiz:home' %}" class="navbar-brand"><img src="{% static 'backgrounds/gerb.png' %}" style="width: 60;margin-right: 10;">Московское Суворовское Военное Училище</a>
           <ul>
               {% if not request.user.is_active %}
               <li class="nav-item btn" style="margin-left: 480px;"><a class="nav-link" href="{% url 'quiz:login' %}" > Вход</a></li>
