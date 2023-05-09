@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %} Let's Quiz | Данной страницы не существует {% endblock title %}
+{% block content %}
+	<div class="container">
+		<div class="alert alert-danger text-center" role="alert">
+	          <h4 class="alert-heading">Ошибка 404: Страница не найдена</h4>
+	          <p>Страница,которую вы просматриваете, не существует. <a href="{% url 'quiz:home' %}" class="alert-link">Вернитесь назад на домашнюю страницу</a></p>
+        </div>
+    </div>
+
+{% endblock content %}

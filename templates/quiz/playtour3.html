@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+<head>
+  <title>{% block title %}{{subject.title}}{% endblock title %}</title>
+</head>
+{% block content %}
+{% if question is None %}
+<div class="container center">
+  <div class="info-text">
+    <h1> Вы ответили на все вопросы. </h1>
+    <a href="{% url 'quiz:leaderboard' %}" class="btn1">Таблица Лидеров</a>
+
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="play_again" value="True">
+      <p>Хотите еще раз?</p>
+      <button type="submit" class="btn1">Играть заново</button>
+    </form>
+
+
+  </div>
+</div>
+
+{% else %}
+
+
+<div margin-left="20%">
+  <h1>{{ subject.title }}, Тур - 3</h1>
+  {% if question.image is not None %}
+    <img src="{{ question.image.url }}" alt="Изображение вопроса" width="100%">
+  {% endif %}
+    <p>{{ question.html }}</p>
+  {% with subject_id=subject.id %}
+    <form action="" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="question_pk" value="{{ question.pk }}">
+      <input type="text" name="text_answer" id="text_answer" required>
+      <button type="submit">Ответить</button>
+    </form>
+  {% endwith %}
+
+  <div class="timer" id="timer">
+  </div>
+</div>
+
+    <script type="text/javascript">
+    let timerShow = document.getElementById("timer"); // Берём блок для показа времени
+
+    timeMinut = 60
+
+
+    timer = setInterval(function(){
+      seconds = timeMinut%60
+      minutes = timeMinut/60%60
+      hour = timeMinut/60/60%60
+      if (timeMinut <= 0) {
+        clearInterval(timer);
+        document.getElementById("submit_answer").submit();
+      } else{
+        let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
+        timerShow.innerHTML = strTimer;
+      }
+      --timeMinut;
+       }, 1000)
+</script>
+  </div>
+{% endif %}
+
+{% endblock content %}

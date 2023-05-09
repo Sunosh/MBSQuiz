@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Профиль{% endblock title %}</title>
+</head>
+{% block content %}
+
+<div class="header1">
+        <h1>Профиль</h1>
+    </div>
+
+    <div class="info">
+        <h2>{{ quizprofile.user }}</h2>
+        <p><strong>Электронная почта:</strong> {{ quizprofile.email }}</p>
+        <p><strong>Общий счёт:</strong> {{ total_score }}</p>
+    </div>
+{% endblock content %}    

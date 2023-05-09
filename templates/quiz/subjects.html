@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Выбор предмета {% endblock title%}</title>
+</head>
+
+
+{% block content %}
+<h1>Предметы</h1>
+{% for subject in subjects %}
+    {% with subject_id=subject.id %}
+<div class="subject-container">
+  <p><a href="{% url 'quiz:play' subject.id %}">{{ subject.title }} (Класс: {{ subject.grade }})</a></p>
+</div>
+    {% endwith %}
+{% endfor %}
+
+{% endblock content %}
