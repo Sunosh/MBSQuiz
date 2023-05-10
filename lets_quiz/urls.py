@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.views.generic import RedirectView
 from django.contrib import admin
 from quiz import views as quiz_views
 from django.conf.urls import handler404, handler500
@@ -24,6 +25,7 @@ urlpatterns = [
     url('^grappelli/', include('grappelli.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('quiz.urls')),
+    url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico'))
 ]
 
 
