@@ -1,4 +1,4 @@
-<!-- {% load static %} -->
+{% load static %}
 <html lang="ru" class="h-100">
   <head>
     <meta charset="utf-8" />
@@ -16,7 +16,7 @@
 
     <!-- <link rel="stylesheet" href="{% static 'css/main.css' %}" /> -->
     <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-    <!--     {% block css %}
+    <!--    {% block css %}
 			./styles.css
     {% endblock css %} -->
   </head>
@@ -33,7 +33,6 @@
               src="{% static 'backgrounds/gerb.png' %}"
               alt="Logo"
               width="50"
-              height="48"
               class="d-inline-block"
             />
             <span class="d-none d-lg-inline-block"
@@ -53,13 +52,13 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
-              <!-- {% if not request.user.is_active %}
+              {% if not request.user.is_active %}
 							<li class="nav-item">
 								<a class="nav-link" href="{% url 'quiz:leaderboard' %}">
 									Таблица Лидеров</a
 								>
 							</li>
-							{% else %} -->
+							{% else %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'quiz:subjects' %}">Играть</a>
               </li>
@@ -69,26 +68,26 @@
                 >
               </li>
 
-              <!-- {% endif %} -->
+              {% endif %}
             </ul>
             <div class="d-flex align-items-center gap-2 mt-4 mt-lg-0">
-              <!-- {% if not request.user.is_active %} -->
+              {% if not request.user.is_active %}
               <a class="btn btn-outline-light" href="{% url 'quiz:login' %}"
                 >Вход</a
               >
               <a class="btn btn-outline-light" href="{% url 'quiz:register' %}"
                 >Регистрация</a
               >
-              <!-- {% else %}
+              {% else %}
 								<a class="btn btn-outline-light" href="{% url 'quiz:logout' %}"> Выйти </a>
-							{% endif %} -->
+							{% endif %}
             </div>
           </div>
         </div>
       </nav>
     </header>
     <main class="container-fluid py-5">
-      <!-- {% block content %} {% endblock content %} -->
+      {% block content %} {% endblock content %}
 			
     </main>
     <footer class="footer fixed-bottom mt-auto py-2 bg-dark text-white text-center">
@@ -105,7 +104,7 @@
     ></script>
 
     <script src="{% static 'js/main.js' %}"></script>
-    <!-- {% block js %}
+    {% block js %}
 
     <script type="text/javascript">
       let timerShow = document.getElementById("timer"); // Берём блок для показа времени

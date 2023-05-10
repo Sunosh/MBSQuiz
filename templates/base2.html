@@ -524,27 +524,23 @@ label.radio {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     {% block js %}
-
     <script type="text/javascript">
     let timerShow = document.getElementById("timer"); // Берём блок для показа времени
-
     timeMinut = 60
-
-
     timer = setInterval(function(){
-     seconds = timeMinut%60
-         minutes = timeMinut/60%60
-         hour = timeMinut/60/60%60
- if (timeMinut <= 0) {
-  clearInterval(timer);
-  document.getElementById("submit_answer").submit();
- } else{
-  let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
-  timerShow.innerHTML = strTimer;
- }
- --timeMinut;
+    seconds = timeMinut%60
+        minutes = timeMinut/60%60
+        hour = timeMinut/60/60%60
+    if (timeMinut <= 0) {
+        clearInterval(timer);
+        document.getElementById("submit_answer").submit();
+    } else{
+        let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
+        timerShow.innerHTML = strTimer;
+    }
+    --timeMinut;
     }, 1000)
 </script>
 
