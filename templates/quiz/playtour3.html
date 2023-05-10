@@ -28,7 +28,9 @@
         {{ subject.title }}, Тур - 3
       </h5>
       {% if question.image is not None %}
-        <img class="img-fluid py-2" src="{{ question.image.url }}" alt="Изображение вопроса">
+        <img class="img-fluid py-2" src="/{{ question.image.url }}" alt="Изображение вопроса"
+        style="height: 300px"
+        >
       {% endif %}
       <h6 class="card-subtitle mb-2 text-body-secondary">
         {{ question.html }}

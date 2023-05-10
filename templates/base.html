@@ -103,30 +103,9 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="{% static 'js/main.js' %}"></script>
+
     {% block js %}
 
-    <script type="text/javascript">
-      let timerShow = document.getElementById("timer"); // Берём блок для показа времени
-
-      timeMinut = 60;
-
-      timer = setInterval(function () {
-        seconds = timeMinut % 60;
-        minutes = (timeMinut / 60) % 60;
-        hour = (timeMinut / 60 / 60) % 60;
-        if (timeMinut <= 0) {
-          clearInterval(timer);
-          document.getElementById("submit_answer").submit();
-        } else {
-          let strTimer = `${Math.trunc(hour)}:${Math.trunc(
-            minutes
-          )}:${seconds}`;
-          timerShow.innerHTML = strTimer;
-        }
-        --timeMinut;
-      }, 1000);
-    </script>
 
     {% endblock js %}
   </body>

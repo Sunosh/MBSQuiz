@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 <head>
   <title>{% block title %}{{subject.title}}{% endblock title %}</title>
 </head>
@@ -86,48 +87,32 @@
   </div>
 </div>
 
-<!-- 
-  !!!СТАРАЯ ВЕРСИЯ
-  <div margin-left="20%">
-  <h1>{{ subject.title }}, Тур - {{question.tour}}</h1>
-    <p>{{ question.html }}</p>
-  {% with subject_id=subject.id %}
-    <form action="" method="post">
-      {% csrf_token %}
-      <input type="hidden" name="question_pk" value="{{ question.pk }}">
-      {% for choice in question.choices.all %}
-        <input type="radio" name="choice_pk" value="{{ choice.pk }}" id="{{ choice.pk }}" required>
-        <label for="{{ choice.pk }}">{{ choice.html }}</label>
-        <br>
-      {% endfor %}
-      <button type="submit">Ответить</button>
-    </form>
-  {% endwith %}
-
-      <div class="timer "id="timer">
-      </div>
-
-    <script type="text/javascript">
-    let timerShow = document.getElementById("timer"); // Берём блок для показа времени
-
-    timeMinut = 60
-
-
-    timer = setInterval(function(){
-      seconds = timeMinut%60
-      minutes = timeMinut/60%60
-      hour = timeMinut/60/60%60
-      if (timeMinut <= 0) {
-        clearInterval(timer);
-        document.getElementById("submit_answer").submit();
-      } else{
-        let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
-        timerShow.innerHTML = strTimer;
-      }
-      --timeMinut;
-       }, 1000)
-</script>
-  </div> -->
 
 
 {% endblock content %}
+
+    {% block js %}
+    <script src="{% static 'js/main.js' %}"></script>
+    <script type="text/javascript">
+      let timerShow = document.getElementById("timer"); // Берём блок для показа времени
+
+      timeMinut = 60;
+
+      timer = setInterval(function () {
+        seconds = timeMinut % 60;
+        minutes = (timeMinut / 60) % 60;
+        hour = (timeMinut / 60 / 60) % 60;
+        if (timeMinut <= 0) {
+          clearInterval(timer);
+          document.getElementById("submit_answer").submit();
+        } else {
+          let strTimer = `${Math.trunc(hour)}:${Math.trunc(
+            minutes
+          )}:${seconds}`;
+          timerShow.innerHTML = strTimer;
+        }
+        --timeMinut;
+      }, 1000);
+    </script>
+
+    {% endblock js %}
