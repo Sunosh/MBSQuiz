@@ -27,7 +27,10 @@
 <div margin-left="20%">
   <h1>{{ subject.title }}, Тур - 3</h1>
   {% if question.image is not None %}
-    <img src="{{ question.image.url }}" alt="Изображение вопроса" width="100%">
+    <img src="{{ question.image.url }}" alt="Изображение вопроса" class="image">
+    <img src="{{ question.image }}" alt="image" class="image">
+  {% else %}
+    <h1>Error</h1>
   {% endif %}
     <p>{{ question.html }}</p>
   {% with subject_id=subject.id %}
@@ -35,7 +38,7 @@
       {% csrf_token %}
       <input type="hidden" name="question_pk" value="{{ question.pk }}">
       <input type="text" name="text_answer" id="text_answer" required>
-      <button type="submit">Ответить</button>
+      <button type="submit" id="submit_answer">Ответить</button>
     </form>
   {% endwith %}
 
