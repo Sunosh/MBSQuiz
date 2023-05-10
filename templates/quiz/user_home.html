@@ -1,5 +1,6 @@
-{% extends 'base.html' %} {% block title %} СувИОС | Добро пожаловать!{%
-endblock title %} {% block content %}
+{% extends 'base.html' %}
+{% block title %} СувИОС | Добро пожаловать!{%endblock title %}
+{% block content %}
 <div class="container">
   <div class="card bg-light">
     <div class="card-body">
@@ -32,30 +33,4 @@ endblock title %} {% block content %}
   </div>
 </div>
 
-<!-- 
-    !!!СТАРЫЙ КОД
-    <div class="row justify-content-md-center">
-    <div class="col">
-        <div class="user-home">
-                  <h2>Поздравляем! Вы успешно вошли.</h2>
-                  <h3>Перед прохождением предварительно ознакомтесь с правилами</h3>
-                            <h4><strong>Правила : </strong></h4>
-                            <div class="ul-user-home">
-                                <ul style="list-style:decimal;">
-                                    <li>Все вопросы различаются.</li>
-                                    <li><span color="red">Только один ответ правильный.</span></li>
-                                    <li>Каждый правильный ответ измеряется в баллах. <span color="red">4 балла за каждый правильный ответ.</span>
-                                    </li>
-                                    <li>Каждый вопрос может быть показан всего один раз.</li>
-                                    <li>Попытайтесь ответить как можно быстрее.</li>
-                                    <li>Если вы нажмете "Обновить" или "Назад к предыдущей странице", появиться новый вопрос и вопрос который будет засчитан как заново прошедший.</li>
-                                    <li>Вопросы появляются разные для разных пользователей.</li>
-                                    <li>Попытайтесь ответить как можно быстрее.</li>
-                                </ul>
-                            </div>
-                            <a href="{% url 'quiz:subjects' %}" class="btn1" style="margin-left: 30px; margin-bottom: 7px;">Играть</a>
-                        <div>Правила правлены 1 февраля 2023 года</div>
-        </div>
-    </div>
-</div> -->
 {% endblock content %}
