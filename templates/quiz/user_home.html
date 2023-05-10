@@ -1,7 +1,40 @@
-{% extends 'base.html' %}
-{% block title %} СувИОС |  Добро пожаловать!{% endblock title %}
-{% block content %}
-<div class="row justify-content-md-center">
+{% extends 'base.html' %} {% block title %} СувИОС | Добро пожаловать!{%
+endblock title %} {% block content %}
+<div class="container">
+  <div class="card bg-light">
+    <div class="card-body">
+      <h4 class="card-title">Поздравляем! Вы успешно вошли.</h4>
+      <h6 class="card-subtitle">
+        Перед прохождением предварительно ознакомтесь с правилами:
+      </h6>
+      <hr />
+      <p class="card-text">Все вопросы различаются.</p>
+      <p class="card-text text-danger">Только один ответ правильный.</p>
+      <p class="card-text">
+        Каждый правильный ответ измеряется в баллах.
+        <span class="text-danger">4 балла за каждый правильный ответ.</span>
+      </p>
+      <p class="card-text">Каждый вопрос может быть показан всего один раз.</p>
+      <p class="card-text">Попытайтесь ответить как можно быстрее.</p>
+      <p class="card-text">
+        Если вы нажмете "Обновить" или "Назад к предыдущей странице", появиться
+        новый вопрос и вопрос который будет засчитан как заново прошедший.
+      </p>
+      <p class="card-text">
+        Вопросы появляются разные для разных пользователей.
+      </p>
+      <p class="card-text">Попытайтесь ответить как можно быстрее.</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <a href="{% url 'quiz:subjects' %}" class="btn btn-danger">Играть</a>
+        <u><b>Правила правлены 1 февраля 2023 года</b></u>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+    !!!СТАРЫЙ КОД
+    <div class="row justify-content-md-center">
     <div class="col">
         <div class="user-home">
                   <h2>Поздравляем! Вы успешно вошли.</h2>
@@ -17,12 +50,12 @@
                                     <li>Попытайтесь ответить как можно быстрее.</li>
                                     <li>Если вы нажмете "Обновить" или "Назад к предыдущей странице", появиться новый вопрос и вопрос который будет засчитан как заново прошедший.</li>
                                     <li>Вопросы появляются разные для разных пользователей.</li>
-                                    <li>Результаты ответа вы увидите сразу после отправки ответа.</li>
+                                    <li>Попытайтесь ответить как можно быстрее.</li>
                                 </ul>
                             </div>
                             <a href="{% url 'quiz:subjects' %}" class="btn1" style="margin-left: 30px; margin-bottom: 7px;">Играть</a>
                         <div>Правила правлены 1 февраля 2023 года</div>
         </div>
     </div>
-</div>
+</div> -->
 {% endblock content %}

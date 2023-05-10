@@ -1,550 +1,134 @@
-{% load static %}
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- {% load static %} -->
+<html lang="ru" class="h-100">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <title>{% block title %} {% endblock title %}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    {% block css %}
-    <style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
 
+    <!-- <link rel="stylesheet" href="{% static 'css/main.css' %}" /> -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <!--     {% block css %}
+			./styles.css
+    {% endblock css %} -->
+  </head>
+  <body class="d-flex flex-column h-100">
+    <header>
+      <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a
+            class="navbar-brand align-text-center"
+            href="{% url 'quiz:home' %}"
+          >
+            <!-- img src {% static 'backgrounds/gerb.png' %} -->
+            <img
+              src="{% static 'backgrounds/gerb.png' %}"
+              alt="Logo"
+              width="50"
+              height="48"
+              class="d-inline-block"
+            />
+            <span class="d-none d-lg-inline-block"
+              >Московское Суворовское Военное Училище</span
+            >
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+              <!-- {% if not request.user.is_active %}
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'quiz:leaderboard' %}">
+									Таблица Лидеров</a
+								>
+							</li>
+							{% else %} -->
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'quiz:subjects' %}">Играть</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'quiz:leaderboard' %}">
+                  Таблица Лидеров</a
+                >
+              </li>
 
-       body {
-          margin: 0;
-          padding: 0;
-       }
-
-    canvas {
-      display: block;
-      vertical-align: bottom;
-    }
-
-/* ---- particles.js container ---- */
-
-    #particles-js {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: #ffffff;
-      background-image: url("");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: 50% 50%;
-    }
-
-
-
-    .login-form {
-         width: 400px;
-         background-color: LightGray;
-         box-shadow: 8px 10px 7px rgba(0, 0, 0, 0.1);
-         padding: 30px;
-         border-radius: 12px;
-         }
-
-        .login-form label{
-             font-family: Comic Sans MS, Comic Sans, cursive;
-
-        }
-
-        .header1 {
-            background-color: #008CBA;
-            color: white;
-            margin: 0;
-            padding: 16px;
-        }
-        .info {
-            margin: 16px 0;
-            padding: 16px;
-            border: 1px solid #ddd;
-        }
-        .info h2 {
-            margin-top: 0;
-        }
-        .attempts {
-            margin: 16px 0;
-            padding: 16px;
-            border: 1px solid #ddd;
-        }
-        .attempts ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        .attempt {
-            margin-bottom: 16px;
-            padding: 16px;
-            border: 1px solid #ddd;
-        }
-        .attempt h3 {
-            margin-top: 0;
-        }
-        .login-form input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: solid 1px;
-            border-radius: 10px;
-            background: linear-gradient(146deg, #f2e3e3,#f9f8fb,#e0d9f2);
-            font-size: 16px;
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-            }
-
-        .login-form .btn {
-             background: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);
-             color: #FFFFFF;
-             padding: auto;
-             border: none;
-             border-radius: 12px;
-             font-size: 16px;
-        }
-
-        .login-form .btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: 0.5s;
-        }
-
-        .login-form .btn .reg{
-             background: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);
-             color: #FFFFFF;
-             padding: auto;
-             border: none;
-             border-radius: 12px;
-             font-size: 16px;
-             text-decoration: none;
-             text-color: #FFFFFF;
-             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);}
-
-        .login-form .btn .reg:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-            transition: 0.5s;
-        }
-
-        .btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-            transition: 0.5s;
-        }
-        .btn1:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-            transition: 0.5s;
-        }
-
-        li.empty{
-            color: black;
-            border: none;
-        }
-
-        ul.reckvis{
-            font-size: 16px;
-            margin-top: 140px;
-            font-family: Didot, serif;
-            align-items: center;
-            align:center;
-            color: gray;
-            list-style: none;
-        }
-
-    .brand{
-     /*   margin-top: 30px; */
-        margin-left: 20px;
-        font-family: COMIC SANS MS, sans-serif;
-        font-size: 27px;
-        text-decoration: none;
-        color: white;
-    }
-
-    .name{
-        font-size: 100px;
-        color: LightSeaGreen;
-        font-weight: bold;
-        font-family: monospace;
-    }
-
-    .login-container{
-       display: flex;
-       flex-direction: column;
-       justify-content: center;
-       align-items: center;
-       height: 100vh;
-       background-color: #f2f2f2;
-   }
-   .form-chatgpt {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-      list-style: none;
-      font-family: Comic Sans MS, Comic Sans, cursive;
-   }
-
-    .form-text{
-        align-items: center;
-        justify-content: center;
-        list-style: none;
-        font-size: 23px;
-        font-family: Comic Sans MS, Comic Sans, cursive;
-        color: black;
-        text-decoration: none;
-        }
-    .info-text{
-        font-size: 23px;
-        font-family: Comic Sans MS, Comic Sans, cursive;
-        color: black;
-        text-decoration: none;
-        margin-left: 50px;
-    }
-
-/*
-    .container {
-        display: flex;
-        align: center;
-        justify-content: center;
-        text-decoration: none;
-        list-style: none;
-        color: black;
-    }*/
-    .container1 {
-        display: flex;
-        align: center;
-        justify-content: center;
-        text-decoration: none;
-        list-style: none;
-        color: black;
-    }
-    .container2 {
-        display: flex;
-        align: center;
-        justify-content: center;
-        text-decoration: none;
-        list-style: none;
-        color: black;
-    }
-    .container3 {
-        display: flex;
-        align: center;
-    }
-
-/*
-    .container .center {
-        margin-top: auto;
-        display: flex;
-        align: center;
-        justify-content: center;
-        text-decoration: none;
-        list-style: none;
-        color: black;
-    }*/
-
-    div.navbar {
-        height: 90px;
-        margin-top: 10px;
-        padding: 5px;
-        background-size: cover;
-        font-family: COMIC SANS MS;
-    }
-
-    header {
-        background: linear-gradient(147deg, #070112,#070112, #250f2b);
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 5px;
-        height: 85px;
-        display: flex;
-        align-items: center;
-        box-shadow: 0 0 25px 0 black;
-    }
-
-    header * {
-        display: inline;
-    }
-
-    header li {
-         border-radius: 12px;
-         border-collapse: separate;
-         text-decoration: none;
-         background-color: #008CBA;
-         border: none;
-         color: white;
-         padding: 18px;
-         text-align: center;
-         text-decoration: none;
-         display: inline-block;
-         font-size: 15px;
-         margin: 4px 2px;
-    }
-
-    header li a {
-        color: white;
-        text-decoration: none;
-    }
-
-    .btn1 {
-         border-radius: 12px;
-         border-collapse: separate;
-         text-decoration: none;
-         background-color: #008CBA;
-         border: none;
-         color: white;
-         padding: 14px;
-         text-align: center;
-         text-decoration: none;
-         display: inline-block;
-         font-size: 12px;
-         margin: 4px 2px;
-    }
-    .nav{
-        list-type: none;
-        margin-left: 480px;
-        display: inline-block;
-        }
-
-    div.leaderboard{
-        height:auto;
-        width:1070px;
-        padding: 6px auto auto 8px;
-        background:linear-gradient(rgb(52, 102, 174) 0%, rgb(83, 144, 241) 100%);
-        border-style: none;
-        border-radius: 14px;
-        margin: auto auto auto 12%;
-        font-size: 23px;
-        font-family: Comic Sans MS, Comic Sans, cursive;
-        text-decoration: none;
-        text-align: center;
-        justify-content: center;
-    }
-
-    div.leaderboard table{
-        align-items: center;
-        text-align: center;
-        justify-content: center;
-    }
-        input[type="checkbox"] {
-  / Hide the default checkbox /
-  display: none;
-}
-/ Style the label for the checkbox /
-label.checkbox {
-  display: inline-block;
-  position: relative;
-  padding-left: 25px;
-  margin-right: 15px;
-  cursor: pointer;
-  font-size: 16px;
-}
-/ Create the checkmark /
-label.checkbox::before {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 18px;
-  height: 18px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-}
-/ Style the checkmark when the checkbox is checked /
-input[type="checkbox"]:checked + label.checkbox::before {
-  background-color: #2196F3;
-  border-color: #2196F3;
-}
-/ Styling for radio buttons /
-input[type="radio"] {
-  / Hide the default radio button /
-  display: none;
-}
-/ Style the label for the radio button */
-label.radio {
-  display: inline-block;
-  }
-    div.leaderboard table thead tr th{
-        color:#FFC107;
-        font-size: 28px;
-    }
-
-    div.leaderboard table tbody, div.td {
-        background-color:#CDD5D2;
-        border-style: none;
-        border-radius: 7px;
-        height: auto;
-        width:200px;
-        padding: 6px 3px 0px 7px;
-        font-size: 28px;
-    }
-    td.small {
-  padding: 5px;
-  border-radius: 10px;
-  background-color: #f2f2f2;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  text-align: center;
-  color: #333;
-  margin: 5px 4px 0px 3px;
-}
-
-    td.small:hover{
-            background-color: #ddd;
-            transform: scale(1.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: 0.5s;
-        }
-    div.lead{
-            background: linear-gradient(85deg, #fb63f9, #c2e534);
-            text-align: center;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            width: 800px;
-            height: calc(auto+20px);
-            border-radius: 10px;
-            border: none;
-            padding-left: 20px;
-            margin-left: 28%;
-
-            }
-        div.lead tbody tr, div.lead thead tr{
-            text-align: center;
-            align-items: center;
-            justify-content: center;
-            }
-
-
-
-    div.leaderboard h1{
-        color: white;
-    }
-
-    .user-home{
-        background: linear-gradient(to bottom, #ff9999 0%, #99ccff 100%);
-        text-color: black;
-        border: none;
-        border-radius: 12px;
-        margin: calc(auto+20px);
-        box-shadow: 0 13px 20px rgba(0, 0, 0, 0.1);
-        width: 800px;
-        height: calc(auto+20px);
-        margin-left: calc(50%-400px);
-        padding-left:  10px;
-
-    }
-    .ul-user-home{
-        background-color: LightGray;
-        box-shadow: 6px 10px 20px rgba(0, 0, 0, 0.1);
-        border: none;
-        border-radius: 12px;
-        list-style: none;
-        width: 710px;
-        height: auto;
-        font-family: sans-serif;
-
-    }
-
-    .timer{
-        position: absolute;
-        font-size: 13px;
-        align-items: center;
-        justify-content: center;
-        background-color: #LightGray;
-        border-radius: 12px;
-        box-shadow: 0 13px 20px rgba(0, 0, 0, 0.1);
-        border-bottom: 1px solid #fff;
-    }
-
-    .subject-container {
-        width: auto;
-        height: 30px;
-        border-radius: 12px;
-        background-color: LightGray;
-        margin: 1px auto 1px 20px;
-        padding-left: 4px;
-    }
-
-    .image{
-        width: 200px;
-        height: 150px;
-
-
-
-    
-    </style>
-    {% endblock css %}
-
-</head>
-<body>
-    <header class="navbar navbar-expand-xl navbar-dark bg-dark">
-          <a href="{% url 'quiz:home' %}" class="navbar-brand"><img src="{% static 'backgrounds/gerb.png' %}" style="width: 60;margin-right: 10;">МОСКОВСКОЕ СУВОРОВСКОЕ ВОЕННОЕ УЧИЛИЩЕ</a>
-          <ul>
-              {% if not request.user.is_active %}
-              <li class="nav-item btn" style="margin-left: 480px;"><a class="nav-link" href="{% url 'quiz:login' %}" > Вход</a></li>
-              <li class="nav-item btn"><a class="nav-link" href="{% url 'quiz:register' %}" > Регистрация</a></li>
-              <li class="nav-item btn"><a class="nav-link" href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
-              {% else %}
-              <li class="nav-item btn" style="margin-left: 480px;"><a class="nav-link" href="{% url 'quiz:leaderboard' %}" > Таблица Лидеров</a></li>
-              <li class="nav-item btn"><a class="nav-link" href="{% url 'quiz:subjects' %}"> Играть </a></li>
-              <li class="nav-item btn"><a class="nav-link" href="{% url 'quiz:logout' %}" > Выйти </a></li>
-
-              {% endif %}
-        
-
-          </ul>
-
-    </header>
-    <div class="container">
-    {% block content %}
-
-
-        {% endblock content %}
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 offset-md-5">
-                <ul class="reckvis">
-                    <li>@ Москва 2023</li>
-                    <li>  Все права защищены</li>
-                    <li> Почта для обратной связи: </li>
-
-                    <li>sherihay@m-svu.ru</li>
-                </ul>
+              <!-- {% endif %} -->
+            </ul>
+            <div class="d-flex align-items-center gap-2 mt-4 mt-lg-0">
+              <!-- {% if not request.user.is_active %} -->
+              <a class="btn btn-outline-light" href="{% url 'quiz:login' %}"
+                >Вход</a
+              >
+              <a class="btn btn-outline-light" href="{% url 'quiz:register' %}"
+                >Регистрация</a
+              >
+              <!-- {% else %}
+								<a class="btn btn-outline-light" href="{% url 'quiz:logout' %}"> Выйти </a>
+							{% endif %} -->
             </div>
+          </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      </nav>
+    </header>
+    <main class="container-fluid py-5">
+      <!-- {% block content %} {% endblock content %} -->
+			
+    </main>
+    <footer class="footer fixed-bottom mt-auto py-2 bg-dark text-white text-center">
+      <p class="mb-2">Все права защищены @ Москва 2023</p>
+      <p class="mb-0">
+        Почта для обратной связи:
+        <a href="mailto:sherihay@m-svu.ru">sherihay@m-svu.ru</a>
+      </p>
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
 
-     <script src="{% static 'js/main.js' %}"></script>
-    {% block js %}
+    <script src="{% static 'js/main.js' %}"></script>
+    <!-- {% block js %}
 
     <script type="text/javascript">
-    let timerShow = document.getElementById("timer"); // Берём блок для показа времени
+      let timerShow = document.getElementById("timer"); // Берём блок для показа времени
 
-    timeMinut = 60
+      timeMinut = 60;
 
+      timer = setInterval(function () {
+        seconds = timeMinut % 60;
+        minutes = (timeMinut / 60) % 60;
+        hour = (timeMinut / 60 / 60) % 60;
+        if (timeMinut <= 0) {
+          clearInterval(timer);
+          document.getElementById("submit_answer").submit();
+        } else {
+          let strTimer = `${Math.trunc(hour)}:${Math.trunc(
+            minutes
+          )}:${seconds}`;
+          timerShow.innerHTML = strTimer;
+        }
+        --timeMinut;
+      }, 1000);
+    </script>
 
-    timer = setInterval(function(){
-     seconds = timeMinut%60
-         minutes = timeMinut/60%60
-         hour = timeMinut/60/60%60
- if (timeMinut <= 0) {
-  clearInterval(timer);
-  document.getElementById("submit_answer").submit();
- } else{
-  let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
-  timerShow.innerHTML = strTimer;
- }
- --timeMinut;
-    }, 1000)
-</script>
-
-    {% endblock js %} 
-</body>
+    {% endblock js %} -->
+  </body>
+</html>

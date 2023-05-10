@@ -3,70 +3,128 @@
   <title>{% block title %}{{subject.title}}{% endblock title %}</title>
 </head>
 {% block content %}
-{% if question is None %}
-<div class="container center">
-  <div class="info-text">
-    <h1> Вы ответили на все вопросы. </h1>
-    <a href="{% url 'quiz:leaderboard' %}" class="btn1">Таблица Лидеров</a>
+<div class="container">
+  <div class="card bg-light">
+    {% if question is None %}
+      <div class="card-body">
+        <h5 class="card-title">
+          Вы ответили на все вопросы. 
+        </h5>
+        <h6 class="card-subtitle">Хотите еще раз?</h6>
+        <hr>
+        <div class="d-flex gap-2">
+          <form method="POST" class="m-0">
+            <!-- {% csrf_token %} -->
+            <input type="hidden" name="play_again" value="True">
+            <button class="btn btn-primary" type="submit">Играть заново</button>
+          </form>
+          <a class="btn btn-light" href="{% url 'quiz:leaderboard' %}">Таблица Лидеров</a>
+        </div>
+      </div>
 
-
-    <form method="POST">
-      {% csrf_token %}
-      <input type="hidden" name="play_again" value="True">
-      <p>Хотите еще раз?</p>
-      <button type="submit" class="btn1">Играть заново</button>
-    </form>
-
-
-  </div>
-</div>
-
-{% else %}
-
-
-<div margin-left="20%">
-  <h1>{{ subject.title }}, Тур - 3</h1>
-  {% if question.image is not None %}
-    <img src="{{ question.image.url }}" alt="Изображение вопроса" class="image">
-    <img src="{{ question.image }}" alt="image" class="image">
-  {% else %}
-    <h1>Error</h1>
-  {% endif %}
-    <p>{{ question.html }}</p>
-  {% with subject_id=subject.id %}
-    <form action="" method="post">
-      {% csrf_token %}
-      <input type="hidden" name="question_pk" value="{{ question.pk }}">
-      <input type="text" name="text_answer" id="text_answer" required>
-      <button type="submit" id="submit_answer">Ответить</button>
-    </form>
-  {% endwith %}
-
-  <div class="timer" id="timer">
-  </div>
-</div>
-
+    {% else %}
+    <div class="card-body">
+      <h5 class="card-title">
+        {{ subject.title }}, Тур - 3
+      </h5>
+      {% if question.image is not None %}
+      <!-- img url {{ question.image.url }} -->
+        <img class="img-fluid py-2" src="bg_main.jpg" alt="Изображение вопроса">
+      {% endif %}
+      <h6 class="card-subtitle mb-2 text-body-secondary">
+        {{ question.html }}
+      </h6>
+      <hr>
+      <p class="card-text">
+        {% with subject_id=subject.id %}
+          <form id="main_form" action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="question_pk" value="{{ question.pk }}">
+            <div class="mb-2">
+              <label for="text_answer" class="form-label">Введите ответ на вопрос:</label>
+              <input type="text" name="text_answer" class="form-control" id="text_answer" required>
+            </div>									
+          </form>
+        {% endwith %}
+      </p>
+      <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-success" type="submit" form="main_form">Ответить</button>
+        <div class="timer" id="timer"></div>
+      </div>
+    </div>
     <script type="text/javascript">
-    let timerShow = document.getElementById("timer"); // Берём блок для показа времени
-
-    timeMinut = 60
-
-
-    timer = setInterval(function(){
-      seconds = timeMinut%60
-      minutes = timeMinut/60%60
-      hour = timeMinut/60/60%60
-      if (timeMinut <= 0) {
-        clearInterval(timer);
-        document.getElementById("submit_answer").submit();
-      } else{
-        let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
-        timerShow.innerHTML = strTimer;
+      let timerShow = document.getElementById("timer"); // Берём блок для показа времени
+      /* Добавляет 0 если значение меньше 10 */
+      const normalizeTime = (val) => { 
+        return val > 10 ? val : `0${val}`
       }
-      --timeMinut;
-       }, 1000)
-</script>
+      timeMinut = 60;
+      const setTimer = () => { 
+        seconds = timeMinut % 60;
+        minutes = (timeMinut / 60) % 60 > 10 ? (timeMinut / 60) % 60 : `0${(timeMinut / 60) % 60}`
+        hour = (timeMinut / 60 / 60) % 60;
+        if (timeMinut <= 0) {
+          clearInterval(timer);
+          document.getElementById("submit_answer").submit();
+        } else {
+          let strTimer = `${
+            normalizeTime(Math.trunc(hour))
+          }:${
+            normalizeTime(Math.trunc(minutes))
+          }:${normalizeTime(seconds)}`;
+          timerShow.innerHTML = strTimer;
+        }
+        --timeMinut;
+      }
+  
+      timer = setInterval(setTimer, 1000);
+      setTimer();
+    </script>
+
+    <!-- 
+      !!!СТАРЫЙ КОД
+      <div margin-left="20%">
+      <h1>{{ subject.title }}, Тур - 3</h1>
+      {% if question.image is not None %}
+        <img src="{{ question.image.url }}" alt="Изображение вопроса" width="100%">
+      {% endif %}
+        <p>{{ question.html }}</p>
+      {% with subject_id=subject.id %}
+        <form action="" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="question_pk" value="{{ question.pk }}">
+          <input type="text" name="text_answer" id="text_answer" required>
+          <button type="submit">Ответить</button>
+        </form>
+      {% endwith %}
+
+      <div class="timer" id="timer">
+      </div>
+    </div>
+
+        <script type="text/javascript">
+        let timerShow = document.getElementById("timer"); // Берём блок для показа времени
+
+        timeMinut = 60
+
+
+        timer = setInterval(function(){
+          seconds = timeMinut%60
+          minutes = timeMinut/60%60
+          hour = timeMinut/60/60%60
+          if (timeMinut <= 0) {
+            clearInterval(timer);
+            document.getElementById("submit_answer").submit();
+          } else{
+            let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
+            timerShow.innerHTML = strTimer;
+          }
+          --timeMinut;
+          }, 1000)
+    </script>
+      </div> -->
+    {% endif %}
   </div>
-{% endif %}
+</div>
 
 {% endblock content %}

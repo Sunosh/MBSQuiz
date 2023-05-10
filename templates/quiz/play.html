@@ -3,20 +3,93 @@
   <title>{% block title %}{{subject.title}}{% endblock title %}</title>
 </head>
 {% block content %}
-{% if question is None %}
-<div class="container center">
-  <div class="info-text">
-    <h1> Вы ответили на все вопросы 1 и 2 тура. </h1>
-    {% with subject_id=subject.id %}
-    <a href="{% url 'quiz:playtour3' subject_id %}" class="btn1">Перейти к 3 туру</a>
-    {% endwith %}
+
+<div class="container">
+  <div class="card bg-light">
+    {% if question is None %}
+      <div class="card-body">
+        <h5 class="card-title">
+          Вы ответили на все вопросы 1 и 2 тура. 
+        </h5>
+        <hr>
+        {% with subject_id=subject.id %}
+          <a href="{% url 'quiz:playtour3' subject_id %}" class="btn btn-primary">Перейти к 3 туру</a>
+        {% endwith %}
+      </div>
+    {% else %}
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ subject.title }}, Тур - {{question.tour}}
+        </h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">
+          {{ question.html }}
+        </h6>
+        <hr>
+        <p class="card-text">
+          <form id="main_form" action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="question_pk" value="{{ question.pk }}">
+            {% for choice in question.choices.all %}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="choice_pk" value="{{ choice.pk }}" id="{{ choice.pk }}" required>
+                <label class="form-check-label" for="{{ choice.pk }}">
+                  {{ choice.html }}
+                </label>
+              </div>
+            {% endfor %}
+            
+            <!-- Для теста, нужно потом убрать -->
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="choice_pk" value="1" id="test-radio" required>
+              <label class="form-check-label" for="test-radio">
+                test-radio
+              </label>
+            </div>
+            <!--  -->
+
+          </form>
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+          <button class="btn btn-success" type="submit" form="main_form">Ответить</button>
+          <div class="timer" id="timer"></div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        let timerShow = document.getElementById("timer"); // Берём блок для показа времени
+        /* Добавляет 0 если значение меньше 10 */
+        const normalizeTime = (val) => { 
+          return val > 10 ? val : `0${val}`
+        }
+        timeMinut = 60;
+        const setTimer = () => { 
+          seconds = timeMinut % 60;
+          minutes = (timeMinut / 60) % 60 > 10 ? (timeMinut / 60) % 60 : `0${(timeMinut / 60) % 60}`
+          hour = (timeMinut / 60 / 60) % 60;
+          if (timeMinut <= 0) {
+            clearInterval(timer);
+            document.getElementById("submit_answer").submit();
+          } else {
+            let strTimer = `${
+              normalizeTime(Math.trunc(hour))
+            }:${
+              normalizeTime(Math.trunc(minutes))
+            }:${normalizeTime(seconds)}`;
+            timerShow.innerHTML = strTimer;
+          }
+          --timeMinut;
+        }
+    
+        timer = setInterval(setTimer, 1000);
+        setTimer();
+      </script>
+    {% endif %}
   </div>
 </div>
 
-{% else %}
-
-<div margin-left="20%">
-  <h1>{{ subject.title }}. Тур - {{question.tour}}</h1>
+<!-- 
+  !!!СТАРАЯ ВЕРСИЯ
+  <div margin-left="20%">
+  <h1>{{ subject.title }}, Тур - {{question.tour}}</h1>
     <p>{{ question.html }}</p>
   {% with subject_id=subject.id %}
     <form action="" method="post">
@@ -27,7 +100,7 @@
         <label for="{{ choice.pk }}">{{ choice.html }}</label>
         <br>
       {% endfor %}
-      <button type="submit" id="submit_answer">Ответить</button>
+      <button type="submit">Ответить</button>
     </form>
   {% endwith %}
 
@@ -54,7 +127,7 @@
       --timeMinut;
        }, 1000)
 </script>
-  </div>
-{% endif %}
+  </div> -->
+
 
 {% endblock content %}
