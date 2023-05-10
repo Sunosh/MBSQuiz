@@ -116,7 +116,7 @@ class Subjects(models.Model):
 
 class AttemptedQuestion(TimeStampedModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True, null=True)
-    question_tour3 = models.ForeignKey(QuestionTour, on_delete=models.CASCADE)
+    #question_tour3 = models.ForeignKey(QuestionTour, on_delete=models.CASCADE)
     quiz_profile = models.ForeignKey(QuizProfile, on_delete=models.CASCADE, related_name='attempts')
     subjects = models.ForeignKey(Subjects, on_delete=models.CASCADE, default=False)
     selected_choice = models.ForeignKey(Choice, on_delete=models.CASCADE, blank=True, null=True)
