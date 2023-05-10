@@ -22,7 +22,7 @@ class ChoiceInline(admin.StackedInline):
         Overrides base method to exclude the checkbox input for each form field.
         """
         if db_field.name == 'is_correct':
-            kwargs['widget'] = widgets.HiddenInput()
+            kwargs['widget'] = widgets.CheckboxInput()
         return super().formfield_for_dbfield(db_field, **kwargs)
 
     def get_fieldsets(self, request, obj=None):
