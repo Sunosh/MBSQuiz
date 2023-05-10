@@ -88,7 +88,7 @@ class PlayTour3(View):
         question_pk = request.POST.get('question_pk')
         text_answer = request.POST.get('text_answer')
         right_answer = QuestionTour3.objects.filter(pk=question_pk).values_list(
-            'right_answer', flat=True).first()
+            'right_anwser', flat=True).first()
         play_again = request.POST.get('play_again')
 
         if play_again:
