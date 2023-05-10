@@ -14,7 +14,7 @@
         <hr>
         <div class="d-flex gap-2">
           <form method="POST" class="m-0">
-            <!-- {% csrf_token %} -->
+            {% csrf_token %}
             <input type="hidden" name="play_again" value="True">
             <button class="btn btn-primary" type="submit">Играть заново</button>
           </form>
@@ -28,8 +28,7 @@
         {{ subject.title }}, Тур - 3
       </h5>
       {% if question.image is not None %}
-      <!-- img url {{ question.image.url }} -->
-        <img class="img-fluid py-2" src="bg_main.jpg" alt="Изображение вопроса">
+        <img class="img-fluid py-2" src="{{ question.image.url }}" alt="Изображение вопроса">
       {% endif %}
       <h6 class="card-subtitle mb-2 text-body-secondary">
         {{ question.html }}
@@ -80,49 +79,6 @@
       timer = setInterval(setTimer, 1000);
       setTimer();
     </script>
-
-    <!-- 
-      !!!СТАРЫЙ КОД
-      <div margin-left="20%">
-      <h1>{{ subject.title }}, Тур - 3</h1>
-      {% if question.image is not None %}
-        <img src="{{ question.image.url }}" alt="Изображение вопроса" width="100%">
-      {% endif %}
-        <p>{{ question.html }}</p>
-      {% with subject_id=subject.id %}
-        <form action="" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="question_pk" value="{{ question.pk }}">
-          <input type="text" name="text_answer" id="text_answer" required>
-          <button type="submit">Ответить</button>
-        </form>
-      {% endwith %}
-
-      <div class="timer" id="timer">
-      </div>
-    </div>
-
-        <script type="text/javascript">
-        let timerShow = document.getElementById("timer"); // Берём блок для показа времени
-
-        timeMinut = 60
-
-
-        timer = setInterval(function(){
-          seconds = timeMinut%60
-          minutes = timeMinut/60%60
-          hour = timeMinut/60/60%60
-          if (timeMinut <= 0) {
-            clearInterval(timer);
-            document.getElementById("submit_answer").submit();
-          } else{
-            let strTimer = `${Math.trunc(hour)}:${Math.trunc(minutes)}:${seconds}`;
-            timerShow.innerHTML = strTimer;
-          }
-          --timeMinut;
-          }, 1000)
-    </script>
-      </div> -->
     {% endif %}
   </div>
 </div>
