@@ -1,18 +1,28 @@
-body::before {
-  content: "";
-  background-image: url("/static/backgrounds/bg_main.jpg");
-  opacity: 0.3;
-  height: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+.bg-img {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
 }
-body {
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+.bg-img img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  min-width: 50%;
+  min-height: 50%;
+  opacity: 0.4
+}
+.main-container {
+    position: relative;
+    z-index: 1000
+}
+
+.card-bg-custom {
+    background-color: rgba(248, 249, 250, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px)
 }

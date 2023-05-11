@@ -3,19 +3,22 @@
 {% block title %}  СувИОС | Регистрация {% endblock title %}
 {% block content %}
 {% if not request.user.is_active %}
-
-
-        <ul class="form-chatgpt">
-          <li><h1>Пожалуйста, зарегистрируетесь</h1></li>
+    <div class="container">
+        <div class="card card-bg-custom">
+            <div class="card-body">
                 <form method="POST" action="" class="login-form">
+                    <h1 class="h3 mb-3 fw-normal">Пожалуйста, зарегистрируйтесь</h1>
+                    <hr>
                     {% csrf_token %}
                     {{form|crispy}}
-                    <li><input type="submit" class="login-form btn" value="Зарегистрироваться"></li>
-                    <li><p color="black">или ...</p></li>
-                    <li><a href="{% url 'quiz:login' %}" style="text-decoration: none; color: white; height: auto;"><input type="button" class="login-form btn reg" value="Вход"></a></li>
-                </form>
-      </ul>
-
+                    <button class="w-100 btn btn-lg btn-primary my-3" type="submit">Зарегистрировать</button>
+                    <div class="text-center">
+                        <p>Есть аккаунт? <a href="{% url 'quiz:login' %}" class="card-link">Войдите</a>.</p>
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
 {% else %}
 
       <div class="container center">

@@ -34,12 +34,10 @@ class Play(View):
         print(question_X)
         if question_X is not None:
             quiz_profile.create_attempt(question_X, subject)
-
         context = {
             'subject': subject,
             'question': question_X,
         }
-
         return render(request, self.template_name, context=context)
 
     def post(self, request, subject_id, *args, **kwargs):
@@ -48,7 +46,6 @@ class Play(View):
         choice_pk = request.POST.get('choice_pk')
         if not (question_pk and choice_pk):
             return redirect(reverse('quiz:play', args=[subject_id]))
-
         try:
             attempted_question = quiz_profile.attempts.select_related('question').get(question__pk=int(question_pk))
             selected_choice = attempted_question.question.choices.get(pk=int(choice_pk))
@@ -75,12 +72,10 @@ class PlayTour3(View):
         question_XI = self.get_tour3_question(quiz_profile, subject)
         if question_XI is not None:
             quiz_profile.create_attempt3(question_XI, subject)
-
         context = {
             'subject': subject,
             'question': question_XI,
         }
-
         return render(request, self.template_name, context=context)
 
     def post(self, request, subject_id, *args, **kwargs):

@@ -1,47 +1,37 @@
 {% extends 'base.html' %}
 {% block title %} СувИОС | Таблица Лидеров {% endblock title %}
 {% block content %}
-    <div class="container lead">
-{% if request.user.is_active %}
-
-
-    <h1><span><i aria-hidden="true"></i> Рейтинг игроков <i aria-hidden="true"></i></span></h1>
-    <div class="row">
-                <div class="col-4">Позиция</div>
-                <div class="col-4">Имя</div>
-                <div class="col-4">Счет</div>
-        </div>
-            {% for quiz_profile in top_quiz_profiles %}
-
-        <div class="row">
-               <div class="col small">{{ forloop.counter }}</div>
-                {% with profile_id=quiz_profile.id %}
-               <div class="col small">{{ quiz_profile.user.username }}</div>
-               {% endwith %}
-               <div class="col small">{{ quiz_profile.total_score }}</div>
-
-        </div>
-            {% endfor %}
-
-
-{% else %}
-
-    <h1><span><i aria-hidden="true"></i> Рейтинг игроков <i aria-hidden="true"></i></span></h1>
-    <div class="row">
-                <div class="col-4">Позиция</div>
-                <div class="col-4">Имя</div>
-                <div class="col-4">Счет</div>
-    </div>
-            {% for quiz_profile in top_quiz_profiles %}
-            <div class="row">
-               <div class="col-4 small">{{ forloop.counter }}</div>
-               <div class="col-4 small">{{ quiz_profile.user.username }}</div>
-               <div class="col-4 small">{{ quiz_profile.total_score }}</div>
+    <div class="container">
+      <div class="card card-bg-custom">
+        <div class="card-body">
+            <h4 class="card-title">Рейтинг игроков</h4>
+            <div class="table-responsive">
+              <table class="table border-dark">
+                 <thead>
+                    <tr>
+                      <th scope="col">Позиция</th>
+                      <th scope="col">Имя</th>
+                      <th scope="col">Счет</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for quiz_profile in top_quiz_profiles %}
+                        <tr>
+                           <td>{{ forloop.counter }}</td>
+                            {% if request.user.is_active %}
+                                {% with profile_id=quiz_profile.id %}
+                                   <td>{{ quiz_profile.user.username }}</td>
+                                {% endwith %}
+                            {% else %}
+                                <td>{{ quiz_profile.user.username }}<td>
+                            {% endif %}
+                           <td>{{ quiz_profile.total_score }}</td>
+                        <tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
             </div>
-            {% endfor %}
-        </tbody>
-    </table>
-
-{% endif %}
-          </div>
+        </div>
+      </div>
+    </div>
 {% endblock content %}

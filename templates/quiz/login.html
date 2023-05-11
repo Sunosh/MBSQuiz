@@ -3,34 +3,34 @@
 {% block title %} СувИОС | {{ title }} {% endblock title %}
 {% block content %}
 {% if not request.user.is_active %}
-
-    
-        
-          <ul class="form-chatgpt">
-          <li><h1>Пожалуйста,войдите в аккаунт</h1></li>
+    <div class="container">
+        <div class="card card-bg-custom">
+            <div class="card-body">
                 <form method="POST" action="" class="login-form">
+                    <h1 class="h3 mb-3 fw-normal">Пожалуйста,войдите в аккаунт</h1>
+                    <hr>
                     {% csrf_token %}
                     {{form|crispy}}
-                    <li><input type="submit" class="login-form btn" value="Войти"></li>
-                    <li><p color="black">или ...</p></li>
-                    <li><a href="{% url 'quiz:register' %}" style="text-decoration: none; color: white; height: auto;"><input type="button" class="login-form btn reg" value="Создать аккаунт"></a></li>
-                </form>
-            </ul>  
-        
-      
+                    <button class="w-100 btn btn-lg btn-primary my-3" type="submit">Войти</button>
+                    <div class="text-center">
+                        <p>Нет аккаунта? <a href="{% url 'quiz:register' %}" class="card-link">Зарегистрируйтесь </a>.</p>
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
 {% else %}
-
-    <div class="info-text">
-      <div class="container center">
-        <h1>СувИОС</h1>
-        <p>Проверь свои знания.</p>
-        <p>Мы создаем разносторонние задания.</p>
-        <a href="{% url 'quiz:play' %}">СувИОС</a>
-        <a href="{% url 'quiz:leaderboard' %}">Таблица Лидеров</a>
-      </div>
-    </div>  
-    
-
+    <div class="container">
+        <div class="card card-bg-custom">
+            <div class="card-body">
+                <h5 class="card-title">СувИОС</h5>
+                <p class="card-text">Проверь свои знания.</p>
+                <p class="card-text">Мы создаем разносторонние задания.</p>
+                <a href="{% url 'quiz:play' %}" class="card-link">СувИОС</a>
+                <a href="{% url 'quiz:leaderboard' %}" class="card-link">Таблица Лидеров</a>
+            </div>
+        </div>
+    </div>
 {% endif %}
 
 {% endblock content %}

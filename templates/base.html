@@ -20,8 +20,9 @@
 			./styles.css
     {% endblock css %} -->
   </head>
-  <body class="d-flex flex-column h-100">
-    <header>
+  <body class="h-100">
+    <div class="main-container">
+      <header>
       <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
           <a
@@ -53,20 +54,20 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
               {% if not request.user.is_active %}
-							<li class="nav-item">
-								<a class="nav-link" href="{% url 'quiz:leaderboard' %}">
-									Таблица Лидеров</a
-								>
-							</li>
-							{% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'quiz:subjects' %}">Играть</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'quiz:leaderboard' %}">
-                  Таблица Лидеров</a
-                >
-              </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'quiz:leaderboard' %}">
+                        Таблица Лидеров</a
+                    >
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'quiz:subjects' %}">Играть</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'quiz:leaderboard' %}">
+                    Таблица Лидеров</a
+                  >
+                </li>
 
               {% endif %}
             </ul>
@@ -86,17 +87,23 @@
         </div>
       </nav>
     </header>
-    <main class="container-fluid py-5" style="z-index: 1000">
-      {% block content %} {% endblock content %}
-			
+      <main>
+      <div class="container-fluid py-5">
+        {% block content %} {% endblock content %}
+      </div>
     </main>
-    <footer class="footer fixed-bottom mt-auto py-2 bg-dark text-white text-center">
-      <p class="mb-2">Все права защищены @ Москва 2023</p>
-      <p class="mb-0">
-        Почта для обратной связи:
-        <a href="mailto:sherihay@m-svu.ru">sherihay@m-svu.ru</a>
-      </p>
-    </footer>
+      <footer class="fixed-bottom mt-auto p-2 bg-dark text-white text-center">
+        <p class="mb-2">Все права защищены @ Москва 2023</p>
+        <p class="mb-0">
+          Почта для обратной связи:
+          <a href="mailto:sherihay@m-svu.ru">sherihay@m-svu.ru</a>
+        </p>
+      </footer>
+    </div>
+    <div class="bg-img">
+      <img src="/static/backgrounds/bg_main.jpg" alt="">
+    </div>
+    <!--  -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
