@@ -13,14 +13,16 @@
         </div>
             {% for quiz_profile in top_quiz_profiles %}
 
-        <div class="row">
-               <div class="col small">{{ forloop.counter }}</div>
-                {% with profile_id=quiz_profile.id %}
-               <div class="col small">{{ quiz_profile.user.username }}</div>
-               {% endwith %}
-               <div class="col small">{{ quiz_profile.total_score }}</div>
-
+        
+<div class="row">
+    <div class="col small"><b style="font-size: 18px; font-weight: bold;">{{ forloop.counter }}</b></div>
+     {% with profile_id=quiz_profile.id %}
+    <div class="col small"><b style="font-size: 18px; font-weight: bold;">{{ quiz_profile.user.username }}</b></div>
+    {% endwith %}
+    <div class="col small"><b style="font-size: 18px; font-weight: bold;">{{ quiz_profile.total_score }}</b></div>
         </div>
+
+        
             {% endfor %}
 
 
