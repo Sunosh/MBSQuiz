@@ -35,5 +35,25 @@
         </div>
       </div>
 
+        
+<div class="row">
+    <div class="col small"><b style="font-size: 18px; font-weight: bold;">{{ forloop.counter }}</b></div>
+     {% with profile_id=quiz_profile.id %}
+    <div class="col small"><b style="font-size: 18px; font-weight: bold;">{{ quiz_profile.user.username }}</b></div>
+    {% endwith %}
+    <div class="col small"><b style="font-size: 18px; font-weight: bold;">{{ quiz_profile.total_score }}</b></div>
+        </div>
+
+
+            {% endfor %}
+
+
+{% else %}
+
+    <h1><span><i aria-hidden="true"></i> Рейтинг игроков <i aria-hidden="true"></i></span></h1>
+    <div class="row">
+                <div class="col-4">Позиция</div>
+                <div class="col-4">Имя</div>
+                <div class="col-4">Счет</div>
     </div>
 {% endblock content %}
