@@ -4,7 +4,9 @@
 
 
 {% block css %}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik&Mono&One&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
 {% endblock css %}
 
     <div class="container">
@@ -15,19 +17,19 @@
               <table class="table border-dark">
                  <thead>
                     <tr>
-                      <th scope="col"><b style="font-size:1rem; font-family:Rubik Mono One;">Позиция</b></th>
-                      <th scope="col"><b style="font-size:1rem; font-family:Rubik Mono One;">Имя</b></th>
-                      <th scope="col"><b style="font-size:1rem; font-family:Rubik Mono One;">Счет</b></th>
+                      <th scope="col"><b style="font-size:1rem; font-family:'Rubik Mono One', sans-serif;">Позиция</b></th>
+                      <th scope="col"><b style="font-size:1rem; font-family:'Rubik Mono One', sans-serif;">Имя</b></th>
+                      <th scope="col"><b style="font-size:1rem; font-family:'Rubik Mono One', sans-serif;">Счет</b></th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for quiz_profile in top_quiz_profiles %}
                         <tr>
-                           <td><b style="font-size:2rem; font-family:Rubik Mono One;">{{ forloop.counter }}</b></td>
+                           <td><b style="font-size:2rem; font-family:'Rubik Mono One', sans-serif;">{{ forloop.counter }}</b></td>
                                 {% with profile_id=quiz_profile.id %}
-                                   <td><b style="font-size:2rem; font-family:Rubik Mono One;">{{ quiz_profile.user.username }}</b></td>
+                                   <td><b style="font-size:2rem; font-family:'Rubik Mono One', sans-serif;">{{ quiz_profile.user.username }}</b></td>
                                 {% endwith %}
-                           <td><b style="font-size:2rem; font-family:Rubik Mono One;">{{ quiz_profile.total_score }}</b></td>
+                           <td><b style="font-size:2rem; font-family:'Rubik Mono One', sans-serif;">{{ quiz_profile.total_score }}</b></td>
                         <tr>
                     {% endfor %}
                   </tbody>
