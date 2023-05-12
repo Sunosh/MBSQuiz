@@ -162,6 +162,7 @@ def register(request):
 
 # выход из учётной записи
 def logout_view(request):
+    
     logout(request)
     return redirect('/')
 

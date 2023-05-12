@@ -36,13 +36,6 @@
       </div>
 
         
-<div class="row">
-    <div class="col small"><b style="font-size: 18px; font-weight: bold;">{{ forloop.counter }}</b></div>
-     {% with profile_id=quiz_profile.id %}
-    <div class="col small"><b style="font-size: 18px; font-weight: bold;">{{ quiz_profile.user.username }}</b></div>
-    {% endwith %}
-    <div class="col small"><b style="font-size: 18px; font-weight: bold;">{{ quiz_profile.total_score }}</b></div>
-        </div>
 
 
             {% endfor %}
