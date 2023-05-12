@@ -10,24 +10,24 @@
     <div class="container">
       <div class="card card-bg-custom">
         <div class="card-body">
-            <h4 class="card-title">Рейтинг игроков</h4>
+            <h4 class="card-title"><b style="font-size:2rem; font-family:Rubik Mono One;">Рейтинг игроков</b></h4>
             <div class="table-responsive">
               <table class="table border-dark">
                  <thead>
                     <tr>
-                      <th scope="col">Позиция</th>
-                      <th scope="col">Имя</th>
-                      <th scope="col">Счет</th>
+                      <th scope="col"><b style="font-size:1rem; font-family:Rubik Mono One;">Позиция</b></th>
+                      <th scope="col"><b style="font-size:1rem; font-family:Rubik Mono One;">Имя</b></th>
+                      <th scope="col"><b style="font-size:1rem; font-family:Rubik Mono One;">Счет</b></th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for quiz_profile in top_quiz_profiles %}
                         <tr>
-                           <td>{{ forloop.counter }}</td>
+                           <td><b style="font-size:2rem; font-family:Rubik Mono One;">{{ forloop.counter }}</b></td>
                                 {% with profile_id=quiz_profile.id %}
-                                   <td><b style="font-size:3rem; font-family:Rubik Mono One;">{{ quiz_profile.user.username }}</b></td>
+                                   <td><b style="font-size:2rem; font-family:Rubik Mono One;">{{ quiz_profile.user.username }}</b></td>
                                 {% endwith %}
-                           <td><b style="font-size:3rem; font-family:Rubik Mono One;">{{ quiz_profile.total_score }}</b></td>
+                           <td><b style="font-size:2rem; font-family:Rubik Mono One;">{{ quiz_profile.total_score }}</b></td>
                         <tr>
                     {% endfor %}
                   </tbody>
