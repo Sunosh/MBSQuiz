@@ -25,9 +25,9 @@
                         <tr>
                            <td>{{ forloop.counter }}</td>
                                 {% with profile_id=quiz_profile.id %}
-                                   <td><b style="font-size:5rem; font-family:Rubik Mono One;">{{ quiz_profile.user.username }}</b></td>
+                                   <td><b style="font-size:3rem; font-family:Rubik Mono One;">{{ quiz_profile.user.username }}</b></td>
                                 {% endwith %}
-                           <td><b style="font-size:5rem; font-family:Rubik Mono One;">{{ quiz_profile.total_score }}</b></td>
+                           <td><b style="font-size:3rem; font-family:Rubik Mono One;">{{ quiz_profile.total_score }}</b></td>
                         <tr>
                     {% endfor %}
                   </tbody>
