@@ -4,14 +4,15 @@
     <title>{% block title %}Профиль{% endblock title %}</title>
 </head>
 {% block content %}
-
-<div class="header1">
-        <h1>Профиль</h1>
+<div class="container">
+    <div class="card card-bg-custom">
+      <div class="card-body">
+          <h3 class="card-title">Профиль</h3>
+          <hr>
+          <p class="card-text"><b>Имя пользователя:</b> {{ quizprofile.user }}</p>
+          <p class="card-text"><b>Электронная почта:</b> {{ quizprofile.email }}</p>
+          <p class="card-text"><b>Общий счёт:</b> {{ total_score }}</p>
+      </div>
     </div>
-
-    <div class="info">
-        <h2>{{ quizprofile.user }}</h2>
-        <p><strong>Электронная почта:</strong> {{ quizprofile.email }}</p>
-        <p><strong>Общий счёт:</strong> {{ total_score }}</p>
-    </div>
+</div>
 {% endblock content %}    

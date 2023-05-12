@@ -5,15 +5,20 @@
     <title>{% block title %} Выбор предмета {% endblock title%}</title>
 </head>
 
-
 {% block content %}
-<h1>Предметы</h1>
-{% for subject in subjects %}
-    {% with subject_id=subject.id %}
-<div class="subject-container">
-  <p><a href="{% url 'quiz:play' subject.id %}">{{ subject.title }} (Класс: {{ subject.grade }})</a></p>
+<div class="container">
+    <div class="card card-bg-custom">
+      <div class="card-body text-center">
+          <h3 class="card-title">Выберите предметы</h3>
+          <hr>
+          <ul class="list-group list-group-flush">
+            {% for subject in subjects %}
+                {% with subject_id=subject.id %}
+                    <a class="list-group-item home-link" href="{% url 'quiz:play' subject.id %}">{{ subject.title }} (Класс: {{ subject.grade }})</a>
+                {% endwith %}
+            {% endfor %}
+          </ul>
+      </div>
+    </div>
 </div>
-    {% endwith %}
-{% endfor %}
-
 {% endblock content %}

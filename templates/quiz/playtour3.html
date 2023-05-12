@@ -28,9 +28,11 @@
         {{ subject.title }}, Тур - 3
       </h5>
       {% if question.image is not None %}
-        <img class="img-fluid py-2" src="/{{ question.image.url }}" alt="Изображение вопроса"
-        style="height: 300px"
-        >
+        <div class="d-flex justify-content-center">
+          <img class="img-fluid py-2" src="/{{ question.image.url }}" alt="Изображение вопроса"
+            style="height: 400px"
+          >
+        </div>
       {% endif %}
       <h6 class="card-subtitle mb-2 text-body-secondary">
         {{ question.html }}
@@ -49,7 +51,7 @@
         {% endwith %}
       </p>
       <div class="d-flex justify-content-between align-items-center">
-        <button class="btn btn-success" type="submit" form="main_form">Ответить</button>
+        <button id="btn_submit_form" class="btn btn-success" type="submit" form="main_form">Ответить</button>
         <div class="timer" id="timer"></div>
       </div>
     </div>
@@ -80,6 +82,33 @@
   
       timer = setInterval(setTimer, 1000);
       setTimer();
+
+      //крутилка с текстом для имитации загрузки на кнопке
+      const loadingButtonMarkup = () => {
+        return `
+          <div class="d-flex align-items-center">
+            <div class="spinner-border spinner-border-sm me-2" role="status">
+              <span class="visually-hidden"></span>
+            </div>
+            <span>Принимаю ответ...</span>
+          </div>
+        `
+      }
+
+      //Прием ответа, остановка таймера и отправка формы с задержкой *SUBMIT_DELAY*
+      const mainForm = document.querySelector("#main_form");
+      const btnFormSubmit = document.querySelector("#btn_form_submit");
+      const SUBMIT_DELAY = 3000;
+
+      mainForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        btnFormSubmit.innerHTML = loadingButtonMarkup();
+        btnFormSubmit.setAttribute("disabled", "disabled");
+        clearInterval(timer);
+        setTimeout(() => {
+          mainForm.submit()
+        }, SUBMIT_DELAY)
+      })
     </script>
     {% endif %}
   </div>
