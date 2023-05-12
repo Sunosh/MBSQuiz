@@ -46,14 +46,21 @@
             <div class="mb-2">
               <label for="text_answer" class="form-label">Введите ответ на вопрос:</label>
               <input type="text" name="text_answer" class="form-control" id="text_answer" required>
+              <div class="d-flex justify-content-between align-items-center">
+                <button id="submit_answer" class="btn btn-success" type="submit" form="main_form">Ответить</button>
+                <div class="timer" id="timer"></div>
+              </div>
             </div>									
           </form>
         {% endwith %}
       </p>
+<<<<<<< HEAD
       <div class="d-flex justify-content-between align-items-center">
         <button id="btn_submit_form" class="btn btn-success" type="submit" form="main_form">Ответить</button>
         <div class="timer" id="timer"></div>
       </div>
+=======
+>>>>>>> 125cb5ce9ce9149b415761e62f1f3b4629791a87
     </div>
     <script type="text/javascript">
       let timerShow = document.getElementById("timer"); // Берём блок для показа времени

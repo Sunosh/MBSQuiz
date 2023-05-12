@@ -42,7 +42,11 @@
           </form>
         </p>
         <div class="d-flex justify-content-between align-items-center">
+<<<<<<< HEAD
           <button id="btn_form_submit" class="btn btn-success" type="submit" form="main_form">Ответить</button>
+=======
+          <button id="submit_answer" class="btn btn-success" type="submit" form="main_form">Ответить</button>
+>>>>>>> 125cb5ce9ce9149b415761e62f1f3b4629791a87
           <div class="timer" id="timer"></div>
         </div>
       </div>
@@ -84,28 +88,4 @@
 
 {% endblock content %}
 
-    {% block js %}
-    <script src="{% static 'js/main.js' %}"></script>
-    <script type="text/javascript">
-      let timerShow = document.getElementById("timer"); // Берём блок для показа времени
-
-      timeMinut = 60;
-
-      timer = setInterval(function () {
-        seconds = timeMinut % 60;
-        minutes = (timeMinut / 60) % 60;
-        hour = (timeMinut / 60 / 60) % 60;
-        if (timeMinut <= 0) {
-          clearInterval(timer);
-          document.getElementById("submit_answer").submit();
-        } else {
-          let strTimer = `${Math.trunc(hour)}:${Math.trunc(
-            minutes
-          )}:${seconds}`;
-          timerShow.innerHTML = strTimer;
-        }
-        --timeMinut;
-      }, 1000);
-    </script>
-
-    {% endblock js %}
+  
